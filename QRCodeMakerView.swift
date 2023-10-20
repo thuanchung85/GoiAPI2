@@ -10,13 +10,13 @@ import Foundation
 import SwiftUI
 
 public struct QRView: View {
-    @State private var name = "CHung"
-    @State private var walletAddress = "0x..."
+    @State public var name = "CHung"
+    @State public var walletAddress = "0x..."
     
-    let context = CIContext()
-    let filter = CIFilter.qrCodeGenerator()
+    public let context = CIContext()
+    public let filter = CIFilter.qrCodeGenerator()
     
-    var body: some View{
+    public var body: some View{
         NavigationView{
             Form{
                 TextField("Name", text: $name)
