@@ -16,7 +16,7 @@ public struct QRCodeMakerView: View {
      var width:CGFloat?
      var height:CGFloat?
     
-    init(name: Binding<String>, walletAddress: Binding<String>, width:CGFloat,  height:CGFloat) {
+    public init(name: Binding<String>, walletAddress: Binding<String>, width:CGFloat,  height:CGFloat) {
         self._name = name
         self._walletAddress = walletAddress
         self.width = width
