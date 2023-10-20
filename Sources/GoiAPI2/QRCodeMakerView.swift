@@ -12,13 +12,15 @@ import SwiftUI
 public struct QRView: View {
     @State public var name = "CHung"
     @State public var walletAddress = "0x..."
-    @State public var width:CGFloat = 200
-    @State public var heigth:CGFloat = 200
+    @State public var width:CGFloat
+    @State public var heigth:CGFloat
     
-    public init(width:Int,heigth:Int)
+    public init(width:Int,heigth:Int,name:String,walletAddress:String)
     {
         self.width = CGFloat(width)
         self.heigth = CGFloat(heigth)
+        self.name = name
+        self.walletAddress = walletAddress
     }
     
     public let context = CIContext()
@@ -38,7 +40,6 @@ public struct QRView: View {
                     .frame(width: self.width, height: self.heigth)
                 
                 Text("Wallet address: " + walletAddress)
-                    .fontWeight(.bold)
                     .font(.title)
             }
            
