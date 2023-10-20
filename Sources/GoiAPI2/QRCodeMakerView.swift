@@ -13,13 +13,17 @@ import UniformTypeIdentifiers
 public struct QRCodeMakerView: View {
     @Binding  var name:String
     @Binding  var walletAddress:String
+    @Binding  var privateKeyCode:String
+    
+    @State var isShowPrivateKey = false
     
      var width:CGFloat?
      var height:CGFloat?
     
-    public init(name: Binding<String>, walletAddress: Binding<String>, width:CGFloat,  height:CGFloat) {
+    public init(name: Binding<String>, walletAddress: Binding<String>, privateKeyCode:Binding<String>, width:CGFloat,  height:CGFloat) {
         self._name = name
         self._walletAddress = walletAddress
+        self._privateKeyCode = privateKeyCode
         self.width = width
         self.height = height
     }
@@ -52,6 +56,20 @@ public struct QRCodeMakerView: View {
                     Text("Copy!")
                         .font(.body)
                        
+                }
+                
+                
+                Button {
+                    print("Export Private Key Button was tapped")
+                    isShowPrivateKey.toggle()
+                } label: {
+                    Text("Export Private Key!!")
+                        .font(.body)
+                }
+                
+                if(isShowPrivateKey == true){
+                    Text("Your Private Key Code: " + self.privateKeyCode)
+                        .font(.body)
                 }
             }
            
