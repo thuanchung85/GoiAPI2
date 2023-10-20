@@ -30,7 +30,7 @@ public struct QRView: View {
         NavigationView{
          
             VStack() {
-                Text(name)
+                Text(self.name)
                     .font(.title)
                 
                 Image(uiImage: generateQRCode(from: self.walletAddress))
@@ -39,7 +39,7 @@ public struct QRView: View {
                     .scaledToFit()
                     .frame(width: self.width, height: self.heigth)
                 
-                Text("Wallet address: " + walletAddress)
+                Text("Wallet address: " + self.walletAddress)
                     .font(.title)
             }
            
