@@ -10,8 +10,8 @@ import Foundation
 import SwiftUI
 
 public struct QRView: View {
-    @State public var name = "CHung"
-    @State public var walletAddress = "0x..."
+    @State public var name:String
+    @State public var walletAddress:String
     @State public var width:CGFloat
     @State public var heigth:CGFloat
     
