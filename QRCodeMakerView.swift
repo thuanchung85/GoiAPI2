@@ -9,7 +9,7 @@ import CoreImage.CIFilterBuiltins
 import Foundation
 import SwiftUI
 
-struct QRView: View {
+public struct QRView: View {
     @State private var name = "CHung"
     @State private var walletAddress = "0x..."
     
@@ -26,7 +26,7 @@ struct QRView: View {
                 Image(generateQRCode(from: self.walletAddress))
                     .resizable()
                     .scaledToFit()
-                    .frame(200,200)
+                    .frame(width: 200, height: 200)
                 
                 TextField("Wallet address", text: $walletAddress)
                     .textContentType(.walletAddress)
