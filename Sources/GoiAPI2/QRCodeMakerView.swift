@@ -12,10 +12,13 @@ import SwiftUI
 public struct QRView: View {
     @State public var name = "CHung"
     @State public var walletAddress = "0x..."
+    @State public var width:CGFloat = 200
+    @State public var heigth:CGFloat = 200
     
-    public init()
+    public init(width:Int,heigth:Int)
     {
-        
+        self.width = CGFloat(width)
+        self.heigth = CGFloat(heigth)
     }
     
     public let context = CIContext()
@@ -30,8 +33,9 @@ public struct QRView: View {
                 
                 Image(uiImage: generateQRCode(from: self.walletAddress))
                     .resizable()
+                    .interpolation(.none)
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
+                    .frame(width: self.width, height: self.heigth)
                 
                 Text("Wallet address: " + walletAddress)
                     .fontWeight(.bold)
