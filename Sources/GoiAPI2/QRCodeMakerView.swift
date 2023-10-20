@@ -38,6 +38,14 @@ public struct QRCodeMakerView: View {
                 
                 Text("Wallet address: " + self.walletAddress)
                     .font(.title)
+                
+                Button {
+                    print("Button was tapped")
+                } label: {
+                    Text("Copy!")
+                        .font(.body)
+                       
+                }
             }
            
         }
