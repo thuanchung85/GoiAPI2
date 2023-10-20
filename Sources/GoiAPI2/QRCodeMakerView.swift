@@ -9,22 +9,19 @@ import CoreImage.CIFilterBuiltins
 import Foundation
 import SwiftUI
 
-public struct QRView: View {
-    @State public var name:String
-    @State public var walletAddress:String
-    @State public var width:CGFloat
-    @State public var heigth:CGFloat
+public struct QRCodeMakerView: View {
+    @Binding  var name:String
+    @Binding  var walletAddress:String
     
-    public init(width:Int,heigth:Int,name:String,walletAddress:String)
-    {
-        self.width = CGFloat(width)
-        self.heigth = CGFloat(heigth)
-        self.name = name
-        self.walletAddress = walletAddress
+     var width:CGFloat?
+     var height:CGFloat?
+    
+    init(name: Binding<String>, walletAddress: Binding<String>, width:CGFloat,  height:CGFloat) {
+        self._name = name
+        self._walletAddress = walletAddress
+        self.width = width
+        self.height = height
     }
-    
-    public let context = CIContext()
-    public let filter = CIFilter.qrCodeGenerator()
     
     public var body: some View{
         NavigationView{
@@ -37,7 +34,7 @@ public struct QRView: View {
                     .resizable()
                     .interpolation(.none)
                     .scaledToFit()
-                    .frame(width: self.width, height: self.heigth)
+                    .frame(width: 300, height: 300)
                 
                 Text("Wallet address: " + self.walletAddress)
                     .font(.title)
@@ -48,6 +45,8 @@ public struct QRView: View {
     
     
     func generateQRCode(from string:String)-> UIImage{
+         let context = CIContext()
+         let filter = CIFilter.qrCodeGenerator()
         filter.message = Data(string.utf8)
         
         if let outputImage = filter.outputImage{
@@ -59,3 +58,4 @@ public struct QRView: View {
     }
     
 }//end struct
+
