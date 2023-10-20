@@ -23,21 +23,21 @@ public struct QRView: View {
     
     public var body: some View{
         NavigationView{
-            Form{
-                TextField("Name", text: $name)
-                    .textContentType(.name)
+         
+            VStack() {
+                Text(name)
                     .font(.title)
                 
-                Image(generateQRCode(from: self.walletAddress))
+                Image(uiImage: generateQRCode(from: self.walletAddress))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 200)
                 
-                TextField("Wallet address", text: $walletAddress)
-                    .textContentType(.walletAddress)
+                Text("Wallet address: " + walletAddress)
+                    .fontWeight(.bold)
                     .font(.title)
             }
-            .navigationTitle("Your code")
+           
         }
     }
     
