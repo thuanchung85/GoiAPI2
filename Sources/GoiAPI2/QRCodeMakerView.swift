@@ -8,6 +8,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 public struct QRCodeMakerView: View {
     @Binding  var name:String
@@ -40,7 +41,13 @@ public struct QRCodeMakerView: View {
                     .font(.title)
                 
                 Button {
-                    print("Button was tapped")
+                    print("Copy Button was tapped save to clipbroad")
+                    if #available(iOS 14.0, *) {
+                        UIPasteboard.general.setValue(self.walletAddress,
+                                                      forPasteboardType: UTType.plainText.identifier)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 } label: {
                     Text("Copy!")
                         .font(.body)
