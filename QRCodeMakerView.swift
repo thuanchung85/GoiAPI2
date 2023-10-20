@@ -13,6 +13,11 @@ public struct QRView: View {
     @State public var name = "CHung"
     @State public var walletAddress = "0x..."
     
+    public init()
+    {
+        
+    }
+    
     public let context = CIContext()
     public let filter = CIFilter.qrCodeGenerator()
     
