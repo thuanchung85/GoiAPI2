@@ -47,11 +47,8 @@ public struct QRCodeMakerView: View {
                 Button {
                     print("Copy Button was tapped save to clipbroad")
                   
-                    // write to clipboard
-                    UIPasteboard.general.string = self.walletAddress
-
-                    // read from clipboard
-                    _ = UIPasteboard.general.string
+                    UIPasteboard.general.setValue(self.walletAddress,
+                                                      forPasteboardType: UTType.plainText.identifier)
                    
                 } label: {
                     Text("Copy!")
