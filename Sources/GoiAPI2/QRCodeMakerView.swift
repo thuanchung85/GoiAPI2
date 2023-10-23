@@ -46,12 +46,13 @@ public struct QRCodeMakerView: View {
                 
                 Button {
                     print("Copy Button was tapped save to clipbroad")
-                    if #available(iOS 14.0, *) {
-                        UIPasteboard.general.setValue(self.walletAddress,
-                                                      forPasteboardType: UTType.plainText.identifier)
-                    } else {
-                        // Fallback on earlier versions
-                    }
+                  
+                    // write to clipboard
+                    UIPasteboard.general.string = self.walletAddress
+
+                    // read from clipboard
+                    _ = UIPasteboard.general.string
+                   
                 } label: {
                     Text("Copy!")
                         .font(.body)
