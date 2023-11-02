@@ -162,7 +162,7 @@ public struct Add_AccountsView: View {
                         .padding(.horizontal,20)
                     }
                     .frame(maxWidth: .infinity, maxHeight: 50)
-                }
+                }.frame(maxWidth: .infinity, maxHeight: 150)
             }//end scroll
             .frame(maxWidth: .infinity, maxHeight: .infinity)
            
