@@ -17,6 +17,8 @@ public struct SheetCreateAccountView: View {
     //nut quit khi làm xong account
     @State var isOk_Back:Bool = false
     
+    //disable không cho nhập tên khi đang chạy tạo account mới
+    @State var isDisableEnterTextEditer = false
     
     //===INIT==//
     public init(add_NewAccountName:Binding<String>, isShow_SheetEnterWalletName:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
@@ -49,24 +51,22 @@ public struct SheetCreateAccountView: View {
                         .cornerRadius(10)
                         .padding(.top,15)
                         .padding(.horizontal,20)
-                    
+                    Text("Wallet Name")
+                        .font(.custom("Arial Bold", size: 15))
+                        .padding(.top,15)
+                        .padding(.horizontal,20)
+                    TextField("Enter your wallet name", text: self.$add_NewAccountName)
+                        .frame(height: 60)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .padding([.horizontal], 4)
+                        .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                        .padding([.horizontal], 20)
+                        .disabled(isDisableEnterTextEditer)
+                    Spacer()
                     
                     //nut create account
-                    if(self.add_NewAccountName.isEmpty == false)
-                    {
-                        Text("Wallet Name")
-                            .font(.custom("Arial Bold", size: 15))
-                            .padding(.top,15)
-                            .padding(.horizontal,20)
-                        TextField("Enter your wallet name", text: self.$add_NewAccountName)
-                            .frame(height: 60)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .padding([.horizontal], 4)
-                            .cornerRadius(10)
-                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                            .padding([.horizontal], 20)
-                        
-                        Spacer()
+                    if(self.add_NewAccountName.isEmpty == false){
                         Button(action: {
                             print("Create Account")
                             DispatchQueue.global(qos:.userInteractive).async {
@@ -80,7 +80,7 @@ public struct SheetCreateAccountView: View {
                                 self.isOk_Back = true
                             }
                             //xoa tên account vì đã tạo xong
-                            self.add_NewAccountName = ""
+                            self.isDisableEnterTextEditer = true
                             
                         }) {
                             HStack{
