@@ -197,12 +197,14 @@ public struct Add_AccountsView: View {
                 HStack{
                     VStack(alignment: .leading){
                         Text("Wallet Name")
-                            .font(.custom("Arial ", size: 22))
+                            .font(.custom("Arial ", size: 15))
                             .padding(.bottom,5)
+                            .padding(.horizontal,20)
                         TextField("Enter your wallet name", text: self.$add_WalletName)
                             .font(.body)
                             .foregroundColor(.black)
-                            .padding()
+                            .padding(.top,10)
+                            .padding(.horizontal,20)
                             .background(Color.gray.opacity(0.3))
                             .cornerRadius(12)
                         Spacer()
