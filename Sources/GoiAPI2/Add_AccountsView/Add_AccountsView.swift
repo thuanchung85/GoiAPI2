@@ -68,11 +68,12 @@ public struct Add_AccountsView: View {
                     HStack{
                         
                         ZStack(alignment: .top){
+                            
                             HStack{
                                 //tên ví
                                 Text(i.nameWallet)
                                     .font(.custom("Arial Bold", size: 20))
-                                    .padding(20)
+                                    .padding(.horizontal,20)
                                 Spacer()
                                 //nut detail
                                 Button(action: {
@@ -81,14 +82,15 @@ public struct Add_AccountsView: View {
                                 }) {
                                     Text("Detail")
                                         .font(.custom("Arial Bold", size: 15))
-                                        .padding(20)
+                                        .padding(.horizontal,20)
                                 }
                             }.padding(.top,5)
+                            
                             HStack{
                                 VStack(alignment: .leading){
                                     Text(short_WalletAddress(s: i.addressWallet))
                                         .font(.custom("Arial", size: 15))
-                                        .padding(12)
+                                        .padding(.horizontal,20)
                                     //Text(i.pkey)
                                         //.font(.custom("Arial", size: 12))
                                         //.padding(12)
