@@ -205,7 +205,7 @@ public struct Add_AccountsView: View {
                             .padding()
                             .background(Color.gray.opacity(0.3))
                             .cornerRadius(12)
-                        
+                        Spacer()
                         //nut import account
                         Button(action: {
                            print("Create Account")
@@ -221,6 +221,7 @@ public struct Add_AccountsView: View {
                             .background(Color.green)
                             .cornerRadius(10)
                             .padding(.horizontal,20)
+                            .padding(.bottom,50)
                         }
                     }
                 }
