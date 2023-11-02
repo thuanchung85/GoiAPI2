@@ -140,6 +140,8 @@ public struct Add_AccountsView: View {
                         .cornerRadius(10)
                         .padding(.horizontal,20)
                     }
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    
                     //nut import account
                     Button(action: {
                        print("import Account")
@@ -159,6 +161,7 @@ public struct Add_AccountsView: View {
                         .cornerRadius(10)
                         .padding(.horizontal,20)
                     }
+                    .frame(maxWidth: .infinity, maxHeight: 50)
                 }
             }//end scroll
             .frame(maxWidth: .infinity, maxHeight: .infinity)
