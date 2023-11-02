@@ -49,22 +49,24 @@ public struct SheetCreateAccountView: View {
                         .cornerRadius(10)
                         .padding(.top,15)
                         .padding(.horizontal,20)
-                    Text("Wallet Name")
-                        .font(.custom("Arial Bold", size: 15))
-                        .padding(.top,15)
-                        .padding(.horizontal,20)
-                    TextField("Enter your wallet name", text: self.$add_NewAccountName)
-                        .frame(height: 60)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding([.horizontal], 4)
-                        .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                        .padding([.horizontal], 20)
                     
-                    Spacer()
                     
                     //nut create account
-                    if(self.add_NewAccountName.isEmpty == false){
+                    if(self.add_NewAccountName.isEmpty == false)
+                    {
+                        Text("Wallet Name")
+                            .font(.custom("Arial Bold", size: 15))
+                            .padding(.top,15)
+                            .padding(.horizontal,20)
+                        TextField("Enter your wallet name", text: self.$add_NewAccountName)
+                            .frame(height: 60)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding([.horizontal], 4)
+                            .cornerRadius(10)
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                            .padding([.horizontal], 20)
+                        
+                        Spacer()
                         Button(action: {
                             print("Create Account")
                             DispatchQueue.global(qos:.userInteractive).async {
@@ -74,8 +76,8 @@ public struct SheetCreateAccountView: View {
                                 let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
                                                           addressWallet: self.tempAddress, pkey: "making...")
                                 self.arr_Accounts.append(newAcc)
-                                //xoa tên account vì đã tạo xong
-                                self.add_NewAccountName = ""
+                                
+                                self.isOk_Back = true
                             }
                             //xoa tên account vì đã tạo xong
                             self.add_NewAccountName = ""
