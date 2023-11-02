@@ -67,33 +67,36 @@ public struct SheetCreateAccountView: View {
                     
                     //nut create account
                     if(self.add_NewAccountName.isEmpty == false){
-                        Button(action: {
-                            print("Create Account")
-                            DispatchQueue.global(qos:.userInteractive).async {
-                                self.tempAddress = makeEthereumAddressAccount(name: self.add_NewAccountName)
-                                print("tempAddress make new: ",  self.tempAddress)
-                                //tạo account mới
-                                let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                          addressWallet: self.tempAddress, pkey: "making...")
-                                self.arr_Accounts.append(newAcc)
+                        if(self.isDisableEnterTextEditer == false){
+                            Button(action: {
+                                print("Create Account")
+                                self.tempAddress = "Making your new wallet, please wait..."
+                                DispatchQueue.global(qos:.userInteractive).async {
+                                    self.tempAddress = makeEthereumAddressAccount(name: self.add_NewAccountName)
+                                    print("tempAddress make new: ",  self.tempAddress)
+                                    //tạo account mới
+                                    let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                              addressWallet: self.tempAddress, pkey: "making...")
+                                    self.arr_Accounts.append(newAcc)
+                                    
+                                    self.isOk_Back = true
+                                }
+                                //xoa tên account vì đã tạo xong
+                                self.isDisableEnterTextEditer = true
                                 
-                                self.isOk_Back = true
+                            }) {
+                                HStack{
+                                    Text("Create")
+                                        .foregroundColor(Color.white)
+                                        .font(.custom("Arial", size: 20))
+                                        .padding(.horizontal,5)
+                                }
+                                .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                                .background(Color.green)
+                                .cornerRadius(10)
+                                .padding(.horizontal,20)
+                                .padding(.bottom,50)
                             }
-                            //xoa tên account vì đã tạo xong
-                            self.isDisableEnterTextEditer = true
-                            
-                        }) {
-                            HStack{
-                                Text("Create")
-                                    .foregroundColor(Color.white)
-                                    .font(.custom("Arial", size: 20))
-                                    .padding(.horizontal,5)
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
-                            .background(Color.green)
-                            .cornerRadius(10)
-                            .padding(.horizontal,20)
-                            .padding(.bottom,50)
                         }
                     }
                     
