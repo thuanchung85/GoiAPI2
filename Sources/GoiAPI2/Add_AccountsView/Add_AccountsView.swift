@@ -80,19 +80,20 @@ public struct Add_AccountsView: View {
                                     
                                 }) {
                                     Text("Detail")
-                                        .font(.custom("Arial Bold", size: 20))
+                                        .font(.custom("Arial Bold", size: 15))
                                         .padding(20)
                                 }
-                            }
+                            }.padding(.top,10)
                             HStack{
-                                VStack{
+                                VStack(alignment: .leading){
                                     Text(i.addressWallet)
                                         .font(.custom("Arial", size: 12))
                                         .padding(12)
-                                    Text(i.pkey)
-                                        .font(.custom("Arial", size: 12))
-                                        .padding(12)
+                                    //Text(i.pkey)
+                                        //.font(.custom("Arial", size: 12))
+                                        //.padding(12)
                                 }
+                                Spacer()
                             }.padding(.top,50)
                         }//end VStack
                         
