@@ -15,9 +15,11 @@ public struct Add_AccountsView: View {
     @Binding var isBack:Bool
     
     //đây là account chính của ví, khi khôi phục thì đây là account sẽ lấy lại được
-    @State var CoreAccount:Account_Type
+    @State var CoreAccount_WalletName:String
+    @State var CoreAccount_addressWallet:String
+    @State var CoreAccount_pkey:String
     
-    @State var arr_AccountsPhu:[Account_Type] = []
+    @State var arr_Accounts:[Account_Type] = []
     
     //===BODY===//
     public var body: some View {
@@ -57,7 +59,7 @@ public struct Add_AccountsView: View {
                     Spacer()
                 }
                 //list of orther network
-                ForEach(self.arr_AccountsPhu, id: \.self)
+                ForEach(self.arr_Accounts, id: \.self)
                 { i in //section data
                     
                     HStack{
@@ -83,7 +85,15 @@ public struct Add_AccountsView: View {
             
             
         }//end Vstack
-        
+        //khi xuat hien thi khởi tạo core account
+        .onAppear(){
+            //tạo core account, account đầu tiên trong ví
+            let accountCore = Account_Type(nameWallet: self.CoreAccount_WalletName,
+                                           addressWallet: self.CoreAccount_addressWallet,
+                                           pkey: self.CoreAccount_pkey)
+            //gắn core account vào array
+            arr_Accounts.append(accountCore)
+        }
         
     }//end body
     
