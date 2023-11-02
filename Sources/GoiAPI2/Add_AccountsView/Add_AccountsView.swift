@@ -71,7 +71,7 @@ public struct Add_AccountsView: View {
                             
                             HStack{
                                 //tên ví
-                                Text(i.nameWallet)
+                                Text(i.nameWallet + " (Core Account)")
                                     .font(.custom("Arial Bold", size: 20))
                                     .padding(.horizontal,20)
                                 Spacer()
@@ -100,8 +100,6 @@ public struct Add_AccountsView: View {
                                 Spacer()
                             }.padding(.top,20)
                         }//end VStack
-                        
-                       
                         
                     }
                     .onTapGesture(perform: {
