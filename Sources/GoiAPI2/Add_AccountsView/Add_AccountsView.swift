@@ -21,6 +21,15 @@ public struct Add_AccountsView: View {
     
     @State var arr_Accounts:[Account_Type] = []
     
+    //===INIT==//
+    public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String)  {
+        self._isBack = isBack
+        self.CoreAccount_WalletName = CoreAccount_WalletName
+        self.CoreAccount_addressWallet = CoreAccount_addressWallet
+        self.CoreAccount_pkey = CoreAccount_pkey
+    }
+    
+    
     //===BODY===//
     public var body: some View {
         VStack(){

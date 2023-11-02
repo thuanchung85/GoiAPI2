@@ -23,7 +23,7 @@ public struct QR_ScannerView: View {
     
     @Binding var isShow_ScanQRcodeView:Bool
     
-    
+    //===INIT===//
     public init(scannerCode:Binding<String>, isShow_ScanQRcodeView: Binding<Bool>)  {
         self._scannerCode = scannerCode
         self._isShow_ScanQRcodeView = isShow_ScanQRcodeView
