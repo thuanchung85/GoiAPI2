@@ -86,7 +86,7 @@ public struct Add_AccountsView: View {
                                         .padding(.horizontal,20)
                                         .scaledToFit()
                                         .minimumScaleFactor(0.01)
-                                        .frame(width: 250)
+                                        .frame(width: 250, alignment: .trailing)
                                     Spacer()
                                     //nut detail
                                     Button(action: {
