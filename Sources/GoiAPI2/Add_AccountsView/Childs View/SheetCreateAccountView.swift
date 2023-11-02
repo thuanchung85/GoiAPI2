@@ -59,17 +59,20 @@ public struct SheetCreateAccountView: View {
                     Spacer()
                     
                     //nut add account
-                    if(self.add_NewAccountName.isEmpty == false) && (self.tempAddress.isEmpty == false){
+                    if(self.add_NewAccountName.isEmpty == false){
                         Button(action: {
                             print("Create Account")
-                            //off this sheet
-                            self.isShow_SheetEnterWalletName = false
-                            //tạo account mới
-                            let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                      addressWallet: self.tempAddress, pkey: "making...")
-                            self.arr_Accounts.append(newAcc)
-                            //xoa tên account vì đã tạo xong
-                            self.add_NewAccountName = ""
+                            DispatchQueue.global(qos:.userInteractive).async {
+                                self.tempAddress = makeEthereumAddressAccount(name: self.add_NewAccountName)
+                                print("tempAddress make new: ",  self.tempAddress)
+                                //tạo account mới
+                                let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                          addressWallet: self.tempAddress, pkey: "making...")
+                                self.arr_Accounts.append(newAcc)
+                                //xoa tên account vì đã tạo xong
+                                self.add_NewAccountName = ""
+                            }
+                            
                         }) {
                             HStack{
                                 Text("Create")
@@ -87,23 +90,22 @@ public struct SheetCreateAccountView: View {
                 }//end VStack
             }//end HStack
          }//end VStack
-        .onAppear(){
-            DispatchQueue.main.async {
-                self.tempAddress = makeEthereumAddressAccount()
-                print("tempAddress make new: ",  self.tempAddress)
-            }
-           
-        }
+        
     }
     
 }//end struct
 
 //==hàm tạo nhanh 1 account ethereum==//
-func makeEthereumAddressAccount() -> String
+func makeEthereumAddressAccount(name :String) -> String
 {
+    
     do {
      let keystore = try EthereumKeystoreV3.init(password: "")
-        return keystore?.addresses?.first?.address ?? "keystore error no data"
+        let address = keystore?.addresses!.first!
+        
+        let pkey = try? keystore?.UNSAFE_getPrivateKeyData(password: "", account: address!).toHexString()
+        print(pkey as Any)
+        return address?.address ?? "keystore error no data"
      } catch {
      print(error.localizedDescription)
      }
