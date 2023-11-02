@@ -135,7 +135,7 @@ public struct Add_AccountsView: View {
                                 .font(.custom("Arial Bold", size: 20))
                                 .padding(.horizontal,5)
                         }
-                        .frame(height: 100)
+                        .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
                         .background(Color.green)
                         .cornerRadius(10)
                         .padding(.horizontal,20)
@@ -156,7 +156,7 @@ public struct Add_AccountsView: View {
                                 .font(.custom("Arial Bold", size: 20))
                                 .padding(.horizontal,5)
                         }
-                        .frame(height: 100)
+                        .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
                         .background(Color.green)
                         .cornerRadius(10)
                         .padding(.horizontal,20)
