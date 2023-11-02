@@ -57,12 +57,14 @@ public struct SheetCreateAccountView: View {
                         .padding(.horizontal,20)
                     TextField("Enter your wallet name", text: self.$add_NewAccountName)
                         .frame(height: 60)
+                        .background(isDisableEnterTextEditer ? Color.white:Color.gray.opacity(0.1))
                         .textFieldStyle(PlainTextFieldStyle())
                         .padding([.horizontal], 4)
                         .cornerRadius(10)
                         .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                         .padding([.horizontal], 20)
                         .disabled(isDisableEnterTextEditer)
+                        
                     Spacer()
                     
                     //nut create account

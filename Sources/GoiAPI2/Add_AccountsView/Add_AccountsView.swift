@@ -130,6 +130,7 @@ public struct Add_AccountsView: View {
                     //nut add account
                     Button(action: {
                        print("add Account")
+                        self.add_NewAccountName = ""
                         self.isShow_SheetEnterWalletName = true
                     }) {
                         HStack{
