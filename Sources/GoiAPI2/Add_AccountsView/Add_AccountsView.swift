@@ -162,7 +162,7 @@ public struct Add_AccountsView: View {
                     }
                 }
             }//end scroll
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
            
             
         }//end Vstack
