@@ -39,10 +39,11 @@ public struct SheetCreateAccountView: View {
                         .padding(.horizontal,20)
                     Text("0x...")
                         .font(.custom("Arial ", size: 15))
+                        .frame(width: .infinity,height: 50)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
                         .padding(.top,15)
                         .padding(.horizontal,20)
-                        .background(Color.gray.opacity(0.2))
-                    
                     Text("Wallet Name")
                         .font(.custom("Arial ", size: 15))
                         .padding(.top,15)
