@@ -57,16 +57,10 @@ public struct Add_AccountsView: View {
                     }
                 }
             }
-            
+            .padding()
             //list view các account
             ScrollView
             {
-                HStack{
-                    Text("Orther Network")
-                        .font(.custom("Arial", size: 20))
-                        .padding(.leading,15)
-                    Spacer()
-                }
                 //list of orther network
                 ForEach(self.arr_Accounts, id: \.self)
                 { i in //section data
@@ -84,6 +78,7 @@ public struct Add_AccountsView: View {
                         print(i.addressWallet)
                         print(i.nameWallet)
                     })
+                    .background(Color.gray.opacity(0.5))
                     .padding(.horizontal,15)
                    
                     
