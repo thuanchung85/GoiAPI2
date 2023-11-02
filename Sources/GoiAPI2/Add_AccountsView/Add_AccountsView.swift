@@ -98,7 +98,7 @@ public struct Add_AccountsView: View {
                                         .padding(.horizontal,30)
                                 }
                                 Spacer()
-                            }.padding(.top,20)
+                            }.padding(.top,30)
                         }//end VStack
                         
                     }
@@ -107,7 +107,7 @@ public struct Add_AccountsView: View {
                         print(i.nameWallet)
                         print(i.pkey)
                     })
-                    .frame(height: 100)
+                    .frame(height: 120)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
                     .padding(.horizontal,15)
