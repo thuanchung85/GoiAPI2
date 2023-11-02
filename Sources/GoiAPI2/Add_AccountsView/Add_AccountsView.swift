@@ -118,50 +118,52 @@ public struct Add_AccountsView: View {
                     
                 }
                 
+                
+                //Nút thêm account
+                VStack{
+                    Spacer()
+                    //nut add account
+                    Button(action: {
+                       print("add Account")
+                        
+                    }) {
+                        HStack{
+                            Image(systemName: "plus.circle")
+                                .renderingMode(.template)
+                                .foregroundColor(Color.white)
+                            Text("Add a wallet")
+                                .foregroundColor(Color.white)
+                                .font(.custom("Arial Bold", size: 20))
+                                .padding(.horizontal,5)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .padding(.horizontal,20)
+                    }
+                    //nut import account
+                    Button(action: {
+                       print("import Account")
+                        
+                    }) {
+                        HStack{
+                            Image(systemName: "plus.circle")
+                                .renderingMode(.template)
+                                .foregroundColor(Color.white)
+                            Text("Recovery wallet")
+                                .foregroundColor(Color.white)
+                                .font(.custom("Arial Bold", size: 20))
+                                .padding(.horizontal,5)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .padding(.horizontal,20)
+                    }
+                }
             }//end scroll
             
-            //Nút thêm account
-            VStack{
-                Spacer()
-                //nut add account
-                Button(action: {
-                   print("add Account")
-                    
-                }) {
-                    HStack{
-                        Image(systemName: "plus.circle")
-                            .renderingMode(.template)
-                            .foregroundColor(Color.white)
-                        Text("Add a wallet")
-                            .foregroundColor(Color.white)
-                            .font(.custom("Arial Bold", size: 20))
-                            .padding(.horizontal,5)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.green)
-                    .cornerRadius(10)
-                    .padding(.horizontal,20)
-                }
-                //nut import account
-                Button(action: {
-                   print("import Account")
-                    
-                }) {
-                    HStack{
-                        Image(systemName: "plus.circle")
-                            .renderingMode(.template)
-                            .foregroundColor(Color.white)
-                        Text("Recovery wallet")
-                            .foregroundColor(Color.white)
-                            .font(.custom("Arial Bold", size: 20))
-                            .padding(.horizontal,5)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                    .background(Color.green)
-                    .cornerRadius(10)
-                    .padding(.horizontal,20)
-                }
-            }
+           
             
         }//end Vstack
         //khi xuat hien thi khởi tạo core account
