@@ -12,7 +12,7 @@ public struct SheetCreateAccountView: View {
     @Binding var arr_Accounts:[Account_Type]
     
     //biến lưu lại địa chỉ account tạm, khi user ok thì sẽ dùng nó còn không ok thì bỏ
-    @State var tempAddress:String = ""
+    @State var tempAddress:String = "0x....Loading"
    
     //===INIT==//
     public init(add_NewAccountName:Binding<String>, isShow_SheetEnterWalletName:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
@@ -37,10 +37,10 @@ public struct SheetCreateAccountView: View {
                         .font(.custom("Arial ", size: 15))
                         .padding(.top,15)
                         .padding(.horizontal,20)
-                    Text("0x...")
+                    Text(tempAddress)
                         .font(.custom("Arial ", size: 15))
-                        .frame(width: .infinity,height: 50)
-                        .background(Color.gray.opacity(0.2))
+                        .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                        .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
                         .padding(.top,15)
                         .padding(.horizontal,20)
