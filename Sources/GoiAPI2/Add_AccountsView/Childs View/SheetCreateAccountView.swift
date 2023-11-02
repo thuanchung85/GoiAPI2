@@ -64,6 +64,7 @@ public struct SheetCreateAccountView: View {
                         .cornerRadius(10)
                         .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                         .background((isDisableEnterTextEditer == false) ? Color.white : Color.gray.opacity(0.1))
+                        .cornerRadius(10)
                         .padding([.horizontal], 20)
                         .disabled(isDisableEnterTextEditer)
                     
