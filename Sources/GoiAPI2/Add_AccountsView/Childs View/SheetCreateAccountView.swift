@@ -57,14 +57,21 @@ public struct SheetCreateAccountView: View {
                         .padding(.horizontal,20)
                     TextField("Enter your wallet name", text: self.$add_NewAccountName)
                         .frame(height: 60)
-                        .background(isDisableEnterTextEditer ? Color.white:Color.gray.opacity(0.1))
+                        .background((isDisableEnterTextEditer == false) ? Color.white : Color.gray.opacity(0.1))
                         .textFieldStyle(PlainTextFieldStyle())
                         .padding([.horizontal], 4)
                         .cornerRadius(10)
                         .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
                         .padding([.horizontal], 20)
                         .disabled(isDisableEnterTextEditer)
-                        
+                    
+                    if(self.tempAddress.isEmpty == false) && (self.isOk_Back == true){
+                        Text("Your wallet has been created.")
+                            .font(.custom("Arial Bold", size: 15))
+                            .padding(.top,15)
+                            .padding(.horizontal,20)
+                            .foregroundColor(Color.green)
+                    }
                     Spacer()
                     
                     //nut create account
@@ -109,7 +116,7 @@ public struct SheetCreateAccountView: View {
                             
                         }) {
                             HStack{
-                                Text("BACK")
+                                Text("OK")
                                     .foregroundColor(Color.white)
                                     .font(.custom("Arial", size: 20))
                                     .padding(.horizontal,5)
