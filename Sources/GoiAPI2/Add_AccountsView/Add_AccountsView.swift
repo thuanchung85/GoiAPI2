@@ -66,10 +66,30 @@ public struct Add_AccountsView: View {
                 { i in //section data
                     
                     HStack{
-                        Text(i.nameWallet)
-                            .font(.custom("Arial Bold", size: 14))
-                            .padding(12)
-                        Text(i.addressWallet)
+                        
+                        VStack{
+                            HStack{
+                                //tên ví
+                                Text(i.nameWallet)
+                                    .font(.custom("Arial Bold", size: 14))
+                                    .padding(12)
+                                Spacer()
+                                //nut detail
+                                Button(action: {
+                                   print("show detail sheet")
+                                    
+                                }) {
+                                    Text("Detail")
+                                        .font(.custom("Arial Bold", size: 12))
+                                        .padding(12)
+                                }
+                            }
+                            Text(i.addressWallet)
+                                .font(.custom("Arial", size: 12))
+                                .padding(12)
+                        }//end VStack
+                        
+                        Text(i.pkey)
                             .font(.custom("Arial", size: 12))
                             .padding(12)
                         Spacer()
@@ -77,8 +97,11 @@ public struct Add_AccountsView: View {
                     .onTapGesture(perform: {
                         print(i.addressWallet)
                         print(i.nameWallet)
+                        print(i.pkey)
                     })
+                    .frame(height: 200)
                     .background(Color.gray.opacity(0.5))
+                    .cornerRadius(10)
                     .padding(.horizontal,15)
                    
                     
