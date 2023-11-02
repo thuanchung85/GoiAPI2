@@ -21,6 +21,10 @@ public struct Add_AccountsView: View {
     
     @State var arr_Accounts:[Account_Type] = []
     
+    //show sheet add account
+    @State var isShow_SheetEnterWalletName = false
+    @State var add_WalletName = ""
+    
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String)  {
         self._isBack = isBack
@@ -124,7 +128,7 @@ public struct Add_AccountsView: View {
                     //nut add account
                     Button(action: {
                        print("add Account")
-                        
+                        self.isShow_SheetEnterWalletName = true
                     }) {
                         HStack{
                             Image(systemName: "plus.circle")
@@ -132,7 +136,7 @@ public struct Add_AccountsView: View {
                                 .foregroundColor(Color.white)
                             Text("Add a wallet")
                                 .foregroundColor(Color.white)
-                                .font(.custom("Arial Bold", size: 20))
+                                .font(.custom("Arial", size: 20))
                                 .padding(.horizontal,5)
                         }
                         .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
@@ -153,7 +157,7 @@ public struct Add_AccountsView: View {
                                 .foregroundColor(Color.white)
                             Text("Recovery wallet")
                                 .foregroundColor(Color.white)
-                                .font(.custom("Arial Bold", size: 20))
+                                .font(.custom("Arial", size: 20))
                                 .padding(.horizontal,5)
                         }
                         .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
@@ -178,6 +182,51 @@ public struct Add_AccountsView: View {
             arr_Accounts.append(accountCore)
         }
         
+        //show sheet người dùng nhập tên ví mới
+        .sheet(isPresented: $isShow_SheetEnterWalletName,
+                content: {
+             
+            VStack(alignment: .center){
+                HStack{
+                    Spacer()
+                    Text("Create New Wallet")
+                        .font(.custom("Arial Bold", size: 20))
+                        .padding(.top,15)
+                    Spacer()
+                }
+                HStack{
+                    VStack(alignment: .leading){
+                        Text("Wallet Name")
+                            .font(.custom("Arial ", size: 22))
+                            .padding(.bottom,5)
+                        TextField("Enter your wallet name", text: self.$add_WalletName)
+                            .font(.body)
+                            .foregroundColor(.black)
+                            .padding()
+                            .background(Color.gray.opacity(0.3))
+                            .cornerRadius(12)
+                        
+                        //nut import account
+                        Button(action: {
+                           print("Create Account")
+                            
+                        }) {
+                            HStack{
+                                Text("Create")
+                                    .foregroundColor(Color.white)
+                                    .font(.custom("Arial", size: 20))
+                                    .padding(.horizontal,5)
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding(.horizontal,20)
+                        }
+                    }
+                }
+             }
+         })
+     
     }//end body
     
 }//end struct
