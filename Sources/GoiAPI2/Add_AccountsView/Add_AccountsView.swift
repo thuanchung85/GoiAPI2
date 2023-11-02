@@ -67,12 +67,12 @@ public struct Add_AccountsView: View {
                     
                     HStack{
                         
-                        VStack{
+                        ZStack(alignment: .top){
                             HStack{
                                 //tên ví
                                 Text(i.nameWallet)
-                                    .font(.custom("Arial Bold", size: 14))
-                                    .padding(12)
+                                    .font(.custom("Arial Bold", size: 20))
+                                    .padding(20)
                                 Spacer()
                                 //nut detail
                                 Button(action: {
@@ -80,18 +80,20 @@ public struct Add_AccountsView: View {
                                     
                                 }) {
                                     Text("Detail")
-                                        .font(.custom("Arial Bold", size: 12))
-                                        .padding(12)
+                                        .font(.custom("Arial Bold", size: 20))
+                                        .padding(20)
                                 }
                             }
                             HStack{
-                                Text(i.addressWallet)
-                                    .font(.custom("Arial", size: 12))
-                                    .padding(12)
-                                Text(i.pkey)
-                                    .font(.custom("Arial", size: 12))
-                                    .padding(12)
-                            }
+                                VStack{
+                                    Text(i.addressWallet)
+                                        .font(.custom("Arial", size: 12))
+                                        .padding(12)
+                                    Text(i.pkey)
+                                        .font(.custom("Arial", size: 12))
+                                        .padding(12)
+                                }
+                            }.padding(.top,50)
                         }//end VStack
                         
                        
@@ -102,7 +104,7 @@ public struct Add_AccountsView: View {
                         print(i.nameWallet)
                         print(i.pkey)
                     })
-                    .frame(height: 200)
+                    .frame(height: 100)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
                     .padding(.horizontal,15)
