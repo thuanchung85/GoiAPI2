@@ -206,13 +206,13 @@ public struct Add_AccountsView: View {
                             .padding([.horizontal], 4)
                             .cornerRadius(10)
                             .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                            .padding([.horizontal], 24)
+                            .padding([.horizontal], 20)
                         
                         Spacer()
                         //nut import account
                         Button(action: {
                            print("Create Account")
-                            
+                            self.isShow_SheetEnterWalletName = false
                         }) {
                             HStack{
                                 Text("Create")
