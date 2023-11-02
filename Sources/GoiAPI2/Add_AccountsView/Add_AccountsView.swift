@@ -78,9 +78,10 @@ public struct Add_AccountsView: View {
                             
                             ZStack(alignment: .top){
                                 //dòng ở trên tên ví và nut detail
-                                HStack{
+                                HStack(){
                                     //tên ví
                                     Text(i.nameWallet)
+                                        .multilineTextAlignment(.leading)
                                         .font(.custom("Arial Bold", size: 20))
                                         .padding(.horizontal,20)
                                         .scaledToFit()
