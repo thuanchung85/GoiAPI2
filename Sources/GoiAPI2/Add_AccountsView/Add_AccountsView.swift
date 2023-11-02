@@ -81,10 +81,11 @@ public struct Add_AccountsView: View {
                                     
                                 }) {
                                     Text("Detail")
+                                        .foregroundColor(Color.black)
                                         .font(.custom("Arial Bold", size: 15))
                                         .padding(.horizontal,20)
                                 }
-                            }.padding(.top,5)
+                            }
                             
                             HStack{
                                 VStack(alignment: .leading){
