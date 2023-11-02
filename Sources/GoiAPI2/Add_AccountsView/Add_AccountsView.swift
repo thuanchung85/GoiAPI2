@@ -201,12 +201,13 @@ public struct Add_AccountsView: View {
                             .padding(.top,15)
                             .padding(.horizontal,20)
                         TextField("Enter your wallet name", text: self.$add_WalletName)
-                            .font(.body)
-                            .foregroundColor(.black)
-                            .padding(.top,10)
-                            .background(Color.gray.opacity(0.3))
-                            .cornerRadius(12)
-                            .padding(.horizontal,20)
+                            .frame(height: 60)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding([.horizontal], 4)
+                            .cornerRadius(10)
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                            .padding([.horizontal], 24)
+                        
                         Spacer()
                         //nut import account
                         Button(action: {
