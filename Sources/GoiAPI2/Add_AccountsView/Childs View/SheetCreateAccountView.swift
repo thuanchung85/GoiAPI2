@@ -52,7 +52,7 @@ public struct SheetCreateAccountView: View {
                             self.isShow_SheetEnterWalletName = false
                             //tạo account mới
                             let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                      addressWallet: "making...", pkey: "making...")
+                                                      addressWallet: makeEthereumAddressAccount(), pkey: "making...")
                             self.arr_Accounts.append(newAcc)
                             //xoa tên account vì đã tạo xong
                             self.add_NewAccountName = ""
@@ -77,3 +77,15 @@ public struct SheetCreateAccountView: View {
     }
     
 }//end struct
+
+//==hàm tạo nhanh 1 account ethereum==//
+func makeEthereumAddressAccount() -> String
+{
+    do {
+     let keystore = try EthereumKeystoreV3.init(password: "")
+        return keystore?.addresses?.first?.address ?? "keystore no data"
+     } catch {
+     print(error.localizedDescription)
+     }
+    return "makeEthereumAddressAccount no data"
+}
