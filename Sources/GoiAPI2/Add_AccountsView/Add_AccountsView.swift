@@ -84,15 +84,18 @@ public struct Add_AccountsView: View {
                                         .padding(12)
                                 }
                             }
-                            Text(i.addressWallet)
-                                .font(.custom("Arial", size: 12))
-                                .padding(12)
+                            HStack{
+                                Text(i.addressWallet)
+                                    .font(.custom("Arial", size: 12))
+                                    .padding(12)
+                                Text(i.pkey)
+                                    .font(.custom("Arial", size: 12))
+                                    .padding(12)
+                            }
                         }//end VStack
                         
-                        Text(i.pkey)
-                            .font(.custom("Arial", size: 12))
-                            .padding(12)
-                        Spacer()
+                       
+                        
                     }
                     .onTapGesture(perform: {
                         print(i.addressWallet)
