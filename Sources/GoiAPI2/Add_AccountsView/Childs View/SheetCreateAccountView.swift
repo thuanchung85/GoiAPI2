@@ -13,7 +13,11 @@ public struct SheetCreateAccountView: View {
     
     //biến lưu lại địa chỉ account tạm, khi user ok thì sẽ dùng nó còn không ok thì bỏ
     @State var tempAddress:String = "0x........"
-   
+    
+    //nut quit khi làm xong account
+    @State var isOk_Back:Bool = false
+    
+    
     //===INIT==//
     public init(add_NewAccountName:Binding<String>, isShow_SheetEnterWalletName:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
         self._add_NewAccountName = add_NewAccountName
@@ -59,7 +63,7 @@ public struct SheetCreateAccountView: View {
                     
                     Spacer()
                     
-                    //nut add account
+                    //nut create account
                     if(self.add_NewAccountName.isEmpty == false){
                         Button(action: {
                             print("Create Account")
@@ -79,6 +83,26 @@ public struct SheetCreateAccountView: View {
                         }) {
                             HStack{
                                 Text("Create")
+                                    .foregroundColor(Color.white)
+                                    .font(.custom("Arial", size: 20))
+                                    .padding(.horizontal,5)
+                            }
+                            .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding(.horizontal,20)
+                            .padding(.bottom,50)
+                        }
+                    }
+                    
+                    //nut OK thoat
+                    if(self.isOk_Back == true){
+                        Button(action: {
+                            self.isShow_SheetEnterWalletName = false
+                            
+                        }) {
+                            HStack{
+                                Text("BACK")
                                     .foregroundColor(Color.white)
                                     .font(.custom("Arial", size: 20))
                                     .padding(.horizontal,5)
