@@ -121,7 +121,6 @@ public struct Add_AccountsView: View {
                 
                 //Nút thêm account
                 VStack{
-                    Spacer()
                     //nut add account
                     Button(action: {
                        print("add Account")
