@@ -83,6 +83,9 @@ public struct Add_AccountsView: View {
                                     Text(i.nameWallet)
                                         .font(.custom("Arial Bold", size: 20))
                                         .padding(.horizontal,20)
+                                        .scaledToFit()
+                                        .minimumScaleFactor(0.01)
+                                        .frame(width: 250)
                                     Spacer()
                                     //nut detail
                                     Button(action: {
