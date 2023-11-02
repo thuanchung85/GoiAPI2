@@ -23,7 +23,7 @@ public struct Add_AccountsView: View {
     
     //show sheet add account
     @State var isShow_SheetEnterWalletName = false
-    @State var add_WalletName = ""
+    @State var add_NewAccountName = ""
     
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String)  {
@@ -200,7 +200,7 @@ public struct Add_AccountsView: View {
                             .font(.custom("Arial ", size: 15))
                             .padding(.top,15)
                             .padding(.horizontal,20)
-                        TextField("Enter your wallet name", text: self.$add_WalletName)
+                        TextField("Enter your wallet name", text: self.$add_NewAccountName)
                             .frame(height: 60)
                             .textFieldStyle(PlainTextFieldStyle())
                             .padding([.horizontal], 4)
@@ -211,11 +211,17 @@ public struct Add_AccountsView: View {
                         Spacer()
                         
                         //nut add account
-                        if(self.add_WalletName.isEmpty == false){
+                        if(self.add_NewAccountName.isEmpty == false){
                             Button(action: {
                                 print("Create Account")
+                                //off this sheet
                                 self.isShow_SheetEnterWalletName = false
-                                
+                                //tạo account mới
+                                let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                          addressWallet: "making...", pkey: "making...")
+                                self.arr_Accounts.append(newAcc)
+                                //xoa tên account vì đã tạo xong
+                                self.add_NewAccountName = ""
                             }) {
                                 HStack{
                                     Text("Create")
