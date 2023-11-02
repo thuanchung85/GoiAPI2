@@ -92,9 +92,10 @@ public struct Add_AccountsView: View {
                                     Text(short_WalletAddress(s: i.addressWallet))
                                         .font(.custom("Arial", size: 15))
                                         .padding(.horizontal,20)
-                                    //Text(i.pkey)
-                                        //.font(.custom("Arial", size: 12))
-                                        //.padding(12)
+                                    Text(i.pkey)
+                                        .foregroundColor(Color.red)
+                                        .font(.custom("Arial", size: 12))
+                                        .padding(.horizontal,20)
                                 }
                                 Spacer()
                             }.padding(.top,50)
