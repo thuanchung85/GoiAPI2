@@ -78,7 +78,7 @@ public struct Add_AccountsView: View {
                                 //dòng ở trên tên ví và nut detail
                                 HStack{
                                     //tên ví
-                                    Text(i.nameWallet + " (Core Account)")
+                                    Text(i.nameWallet)
                                         .font(.custom("Arial Bold", size: 20))
                                         .padding(.horizontal,20)
                                     Spacer()
@@ -175,7 +175,7 @@ public struct Add_AccountsView: View {
         //khi xuat hien thi khởi tạo core account
         .onAppear(){
             //tạo core account, account đầu tiên trong ví
-            let accountCore = Account_Type(nameWallet: self.CoreAccount_WalletName,
+            let accountCore = Account_Type(nameWallet: self.CoreAccount_WalletName + " (Core Account)",
                                            addressWallet: self.CoreAccount_addressWallet,
                                            pkey: self.CoreAccount_pkey)
             //gắn core account vào array
