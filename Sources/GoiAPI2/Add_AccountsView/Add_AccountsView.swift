@@ -198,15 +198,15 @@ public struct Add_AccountsView: View {
                     VStack(alignment: .leading){
                         Text("Wallet Name")
                             .font(.custom("Arial ", size: 15))
-                            .padding(.bottom,5)
+                            .padding(.top,15)
                             .padding(.horizontal,20)
                         TextField("Enter your wallet name", text: self.$add_WalletName)
                             .font(.body)
                             .foregroundColor(.black)
                             .padding(.top,10)
-                            .padding(.horizontal,20)
                             .background(Color.gray.opacity(0.3))
                             .cornerRadius(12)
+                            .padding(.horizontal,20)
                         Spacer()
                         //nut import account
                         Button(action: {
