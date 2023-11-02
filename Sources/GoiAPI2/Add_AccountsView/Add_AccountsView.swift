@@ -98,7 +98,7 @@ public struct Add_AccountsView: View {
                                         .padding(.horizontal,20)
                                 }
                                 Spacer()
-                            }.padding(.top,50)
+                            }.padding(.top,20)
                         }//end VStack
                         
                        
