@@ -12,7 +12,7 @@ public struct SheetCreateAccountView: View {
     @Binding var arr_Accounts:[Account_Type]
     
     //biến lưu lại địa chỉ account tạm, khi user ok thì sẽ dùng nó còn không ok thì bỏ
-    @State var tempAddress:String = "0x....Loading"
+    @State var tempAddress:String = "0x........"
    
     //===INIT==//
     public init(add_NewAccountName:Binding<String>, isShow_SheetEnterWalletName:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
@@ -34,10 +34,11 @@ public struct SheetCreateAccountView: View {
             HStack{
                 VStack(alignment: .leading){
                     Text("Wallet Address")
-                        .font(.custom("Arial ", size: 15))
+                        .font(.custom("Arial Bold", size: 15))
                         .padding(.top,15)
                         .padding(.horizontal,20)
                     Text(tempAddress)
+                        .multilineTextAlignment(.leading)
                         .font(.custom("Arial ", size: 15))
                         .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
                         .background(Color.gray.opacity(0.1))
@@ -45,7 +46,7 @@ public struct SheetCreateAccountView: View {
                         .padding(.top,15)
                         .padding(.horizontal,20)
                     Text("Wallet Name")
-                        .font(.custom("Arial ", size: 15))
+                        .font(.custom("Arial Bold", size: 15))
                         .padding(.top,15)
                         .padding(.horizontal,20)
                     TextField("Enter your wallet name", text: self.$add_NewAccountName)
@@ -72,6 +73,8 @@ public struct SheetCreateAccountView: View {
                                 //xoa tên account vì đã tạo xong
                                 self.add_NewAccountName = ""
                             }
+                            //xoa tên account vì đã tạo xong
+                            self.add_NewAccountName = ""
                             
                         }) {
                             HStack{
