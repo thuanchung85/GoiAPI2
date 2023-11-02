@@ -209,27 +209,32 @@ public struct Add_AccountsView: View {
                             .padding([.horizontal], 20)
                         
                         Spacer()
-                        //nut import account
-                        Button(action: {
-                           print("Create Account")
-                            self.isShow_SheetEnterWalletName = false
-                        }) {
-                            HStack{
-                                Text("Create")
-                                    .foregroundColor(Color.white)
-                                    .font(.custom("Arial", size: 20))
-                                    .padding(.horizontal,5)
+                        
+                        //nut add account
+                        if(self.add_WalletName.isEmpty == false){
+                            Button(action: {
+                                print("Create Account")
+                                self.isShow_SheetEnterWalletName = false
+                                
+                            }) {
+                                HStack{
+                                    Text("Create")
+                                        .foregroundColor(Color.white)
+                                        .font(.custom("Arial", size: 20))
+                                        .padding(.horizontal,5)
+                                }
+                                .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                                .background(Color.green)
+                                .cornerRadius(10)
+                                .padding(.horizontal,20)
+                                .padding(.bottom,50)
                             }
-                            .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
-                            .background(Color.green)
-                            .cornerRadius(10)
-                            .padding(.horizontal,20)
-                            .padding(.bottom,50)
                         }
-                    }
-                }
-             }
-         })
+                    }//end VStack
+                }//end HStack
+             }//end VStack
+            
+         })//end sheet
      
     }//end body
     
