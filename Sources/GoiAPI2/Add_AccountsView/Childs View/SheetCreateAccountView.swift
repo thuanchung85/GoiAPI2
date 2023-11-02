@@ -11,6 +11,9 @@ public struct SheetCreateAccountView: View {
     @Binding var isShow_SheetEnterWalletName:Bool
     @Binding var arr_Accounts:[Account_Type]
     
+    //biến lưu lại địa chỉ account tạm, khi user ok thì sẽ dùng nó còn không ok thì bỏ
+    @State var tempAddress:String = ""
+    
     //===INIT==//
     public init(add_NewAccountName:Binding<String>, isShow_SheetEnterWalletName:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
         self._add_NewAccountName = add_NewAccountName
@@ -45,14 +48,14 @@ public struct SheetCreateAccountView: View {
                     Spacer()
                     
                     //nut add account
-                    if(self.add_NewAccountName.isEmpty == false){
+                    if(self.add_NewAccountName.isEmpty == false) && (self.tempAddress.isEmpty == false){
                         Button(action: {
                             print("Create Account")
                             //off this sheet
                             self.isShow_SheetEnterWalletName = false
                             //tạo account mới
                             let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                      addressWallet: "making...", pkey: "making...")
+                                                      addressWallet: self.tempAddress, pkey: "making...")
                             self.arr_Accounts.append(newAcc)
                             //xoa tên account vì đã tạo xong
                             self.add_NewAccountName = ""
@@ -73,7 +76,13 @@ public struct SheetCreateAccountView: View {
                 }//end VStack
             }//end HStack
          }//end VStack
-        
+        .onAppear(){
+            DispatchQueue.main.async {
+                self.tempAddress = makeEthereumAddressAccount()
+                print("tempAddress make new: ",  self.tempAddress)
+            }
+           
+        }
     }
     
 }//end struct
@@ -83,9 +92,9 @@ func makeEthereumAddressAccount() -> String
 {
     do {
      let keystore = try EthereumKeystoreV3.init(password: "")
-        return keystore?.addresses?.first?.address ?? "keystore no data"
+        return keystore?.addresses?.first?.address ?? "keystore error no data"
      } catch {
      print(error.localizedDescription)
      }
-    return "makeEthereumAddressAccount no data"
+    return "error no data"
 }
