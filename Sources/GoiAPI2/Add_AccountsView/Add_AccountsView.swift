@@ -199,12 +199,12 @@ public struct Add_AccountsView: View {
 
 ///ham rút gọn đị chỉ ví thành 0x08...0000
 func short_WalletAddress(s:String) -> String{
-    if(s.isEmpty == false){
+    if((s.isEmpty == false) && (s != "making...")){
         let Arr = Array(s)
         let substring = "\(Arr[0])\(Arr[1])\(Arr[2])\(Arr[3])...\(Arr[Arr.count-4])\(Arr[Arr.count-3])\(Arr[Arr.count-2])\(Arr[Arr.count-1])"
         return substring
     }
     else{
-        return ""
+        return s
     }
 }

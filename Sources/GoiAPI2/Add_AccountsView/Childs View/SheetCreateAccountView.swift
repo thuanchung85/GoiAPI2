@@ -52,7 +52,7 @@ public struct SheetCreateAccountView: View {
                             self.isShow_SheetEnterWalletName = false
                             //tạo account mới
                             let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                      addressWallet: makeEthereumAddressAccount(), pkey: "making...")
+                                                      addressWallet: "making...", pkey: "making...")
                             self.arr_Accounts.append(newAcc)
                             //xoa tên account vì đã tạo xong
                             self.add_NewAccountName = ""
