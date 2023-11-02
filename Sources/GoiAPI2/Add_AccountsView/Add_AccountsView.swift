@@ -62,65 +62,65 @@ public struct Add_AccountsView: View {
             //list view các account
             ScrollView
             {
-                //list of orther network
-                ForEach(self.arr_Accounts, id: \.self)
-                { i in //section data
-                    
-                    HStack{
-                        
-                        ZStack(alignment: .top){
-                            //dòng ở trên tên ví và nut detail
-                            HStack{
-                                //tên ví
-                                Text(i.nameWallet + " (Core Account)")
-                                    .font(.custom("Arial Bold", size: 20))
-                                    .padding(.horizontal,20)
-                                Spacer()
-                                //nut detail
-                                Button(action: {
-                                   print("show detail sheet")
-                                    
-                                }) {
-                                    Text("Detail")
-                                        .foregroundColor(Color.black)
-                                        .font(.custom("Arial Bold", size: 15))
-                                        .padding(.horizontal,20)
-                                }
-                            }.padding(.top,3)
-                            
-                            //dòng dưới địa chỉ ví và private key
-                            HStack{
-                                VStack(alignment: .leading){
-                                    Text(short_WalletAddress(s: i.addressWallet))
-                                        .font(.custom("Arial", size: 15))
-                                        .padding(.horizontal,20)
-                                    Text(i.pkey)
-                                        .foregroundColor(Color.red)
-                                        .font(.custom("Arial", size: 12))
-                                        .padding(.horizontal,20)
-                                }
-                                Spacer()
-                            }.padding(.top,30)
-                        }//end VStack
-                        
-                    }
-                    .onTapGesture(perform: {
-                        print(i.addressWallet)
-                        print(i.nameWallet)
-                        print(i.pkey)
-                    })
-                    .frame(height: 120)
-                    .background(Color.gray.opacity(0.5))
-                    .cornerRadius(10)
-                    .padding(.horizontal,15)
-                   
-                    
-                    
-                }
-                
-                
                 //Nút thêm account
                 VStack{
+                    //list of orther network
+                    ForEach(self.arr_Accounts, id: \.self)
+                    { i in //section data
+                        
+                        HStack{
+                            
+                            ZStack(alignment: .top){
+                                //dòng ở trên tên ví và nut detail
+                                HStack{
+                                    //tên ví
+                                    Text(i.nameWallet + " (Core Account)")
+                                        .font(.custom("Arial Bold", size: 20))
+                                        .padding(.horizontal,20)
+                                    Spacer()
+                                    //nut detail
+                                    Button(action: {
+                                       print("show detail sheet")
+                                        
+                                    }) {
+                                        Text("Detail")
+                                            .foregroundColor(Color.black)
+                                            .font(.custom("Arial Bold", size: 15))
+                                            .padding(.horizontal,20)
+                                    }
+                                }.padding(.top,3)
+                                
+                                //dòng dưới địa chỉ ví và private key
+                                HStack{
+                                    VStack(alignment: .leading){
+                                        Text(short_WalletAddress(s: i.addressWallet))
+                                            .font(.custom("Arial", size: 15))
+                                            .padding(.horizontal,20)
+                                        Text(i.pkey)
+                                            .foregroundColor(Color.red)
+                                            .font(.custom("Arial", size: 12))
+                                            .padding(.horizontal,20)
+                                    }
+                                    Spacer()
+                                }.padding(.top,30)
+                            }//end VStack
+                            
+                        }
+                        .onTapGesture(perform: {
+                            print(i.addressWallet)
+                            print(i.nameWallet)
+                            print(i.pkey)
+                        })
+                        .frame(height: 120)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(10)
+                        .padding(.horizontal,15)
+                       
+                        
+                        
+                    }
+                    
+                    
                     //nut add account
                     Button(action: {
                        print("add Account")
@@ -135,12 +135,12 @@ public struct Add_AccountsView: View {
                                 .font(.custom("Arial Bold", size: 20))
                                 .padding(.horizontal,5)
                         }
-                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .frame(maxWidth: .infinity, maxHeight: 100)
                         .background(Color.green)
                         .cornerRadius(10)
                         .padding(.horizontal,20)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 50)
+                   
                     
                     //nut import account
                     Button(action: {
@@ -156,13 +156,13 @@ public struct Add_AccountsView: View {
                                 .font(.custom("Arial Bold", size: 20))
                                 .padding(.horizontal,5)
                         }
-                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .frame(maxWidth: .infinity, maxHeight: 100)
                         .background(Color.green)
                         .cornerRadius(10)
                         .padding(.horizontal,20)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: 50)
-                }.frame(maxWidth: .infinity, maxHeight: 150)
+                    
+                }
             }//end scroll
             .frame(maxWidth: .infinity, maxHeight: .infinity)
            
