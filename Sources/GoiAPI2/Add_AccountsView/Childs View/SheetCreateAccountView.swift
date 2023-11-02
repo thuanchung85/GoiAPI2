@@ -13,6 +13,7 @@ public struct SheetCreateAccountView: View {
     
     //biến lưu lại địa chỉ account tạm, khi user ok thì sẽ dùng nó còn không ok thì bỏ
     @State var tempAddress:String = "0x........"
+    @State var tempPKEY:String = ""
     
     //nut quit khi làm xong account
     @State var isOk_Back:Bool = false
@@ -81,11 +82,13 @@ public struct SheetCreateAccountView: View {
                                 print("Create Account")
                                 self.tempAddress = "Making your new wallet, please wait..."
                                 DispatchQueue.global(qos:.userInteractive).async {
-                                    self.tempAddress = makeEthereumAddressAccount(name: self.add_NewAccountName)
+                                    let d = makeEthereumAddressAccount(name: self.add_NewAccountName)
+                                    self.tempAddress = d[0]
+                                    self.tempPKEY = d[1]
                                     print("tempAddress make new: ",  self.tempAddress)
                                     //tạo account mới
                                     let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                              addressWallet: self.tempAddress, pkey: "making...")
+                                                              addressWallet: self.tempAddress, pkey: self.tempPKEY)
                                     self.arr_Accounts.append(newAcc)
                                     
                                     self.isOk_Back = true
@@ -137,7 +140,7 @@ public struct SheetCreateAccountView: View {
 }//end struct
 
 //==hàm tạo nhanh 1 account ethereum==//
-func makeEthereumAddressAccount(name :String) -> String
+func makeEthereumAddressAccount(name :String) -> [String]
 {
     
     do {
@@ -145,12 +148,13 @@ func makeEthereumAddressAccount(name :String) -> String
         let address = keystore?.addresses!.first!
         
         let pkey = try? keystore?.UNSAFE_getPrivateKeyData(password: "", account: address!).toHexString()
+        let privateKey = "0x" + (pkey ?? "")
         print(pkey as Any)
-        return address?.address ?? "keystore error no data"
+        return [address!.address, privateKey]
      } catch {
      print(error.localizedDescription)
      }
-    return "error no data"
+    return ["error no data","error no data"]
 }
 
 
