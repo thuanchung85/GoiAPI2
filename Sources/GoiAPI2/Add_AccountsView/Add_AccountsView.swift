@@ -58,6 +58,7 @@ public struct Add_AccountsView: View {
                 }
             }
             .padding()
+            
             //list view các account
             ScrollView
             {
@@ -68,7 +69,7 @@ public struct Add_AccountsView: View {
                     HStack{
                         
                         ZStack(alignment: .top){
-                            
+                            //dòng ở trên tên ví và nut detail
                             HStack{
                                 //tên ví
                                 Text(i.nameWallet + " (Core Account)")
@@ -87,6 +88,7 @@ public struct Add_AccountsView: View {
                                 }
                             }.padding(.top,3)
                             
+                            //dòng dưới địa chỉ ví và private key
                             HStack{
                                 VStack(alignment: .leading){
                                     Text(short_WalletAddress(s: i.addressWallet))
@@ -95,7 +97,7 @@ public struct Add_AccountsView: View {
                                     Text(i.pkey)
                                         .foregroundColor(Color.red)
                                         .font(.custom("Arial", size: 12))
-                                        .padding(.horizontal,30)
+                                        .padding(.horizontal,20)
                                 }
                                 Spacer()
                             }.padding(.top,30)
@@ -118,6 +120,25 @@ public struct Add_AccountsView: View {
                 
             }//end scroll
             
+            //Nút thêm account
+            VStack{
+                //nut detail
+                Button(action: {
+                   print("add Account")
+                    
+                }) {
+                    HStack{
+                        Image(systemName: "plus.circle")
+                        Text("Add a wallet")
+                            .foregroundColor(Color.white)
+                            .font(.custom("Arial Bold", size: 20))
+                            .padding(.horizontal,5)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 60)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                }
+            }
             
         }//end Vstack
         //khi xuat hien thi khởi tạo core account
