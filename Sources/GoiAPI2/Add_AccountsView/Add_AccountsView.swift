@@ -83,11 +83,11 @@ public struct Add_AccountsView: View {
                                         .font(.custom("Arial Bold", size: 15))
                                         .padding(20)
                                 }
-                            }.padding(.top,10)
+                            }.padding(.top,5)
                             HStack{
                                 VStack(alignment: .leading){
-                                    Text(i.addressWallet)
-                                        .font(.custom("Arial", size: 12))
+                                    Text(short_WalletAddress(s: i.addressWallet))
+                                        .font(.custom("Arial", size: 15))
                                         .padding(12)
                                     //Text(i.pkey)
                                         //.font(.custom("Arial", size: 12))
@@ -131,3 +131,15 @@ public struct Add_AccountsView: View {
     }//end body
     
 }//end struct
+
+///ham rút gọn đị chỉ ví thành 0x08...0000
+func short_WalletAddress(s:String) -> String{
+    if(s.isEmpty == false){
+        let Arr = Array(s)
+        let substring = "\(Arr[0])\(Arr[1])\(Arr[2])\(Arr[3])...\(Arr[Arr.count-4])\(Arr[Arr.count-3])\(Arr[Arr.count-2])\(Arr[Arr.count-1])"
+        return substring
+    }
+    else{
+        return ""
+    }
+}
