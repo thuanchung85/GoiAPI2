@@ -85,7 +85,7 @@ public struct Add_AccountsView: View {
                                         .font(.custom("Arial Bold", size: 15))
                                         .padding(.horizontal,20)
                                 }
-                            }.padding(.top,5)
+                            }.padding(.top,3)
                             
                             HStack{
                                 VStack(alignment: .leading){
@@ -95,7 +95,7 @@ public struct Add_AccountsView: View {
                                     Text(i.pkey)
                                         .foregroundColor(Color.red)
                                         .font(.custom("Arial", size: 12))
-                                        .padding(.horizontal,20)
+                                        .padding(.horizontal,30)
                                 }
                                 Spacer()
                             }.padding(.top,20)
