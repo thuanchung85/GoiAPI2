@@ -89,9 +89,7 @@ public struct SheetCreateAccountView: View {
                                     //tạo account mới
                                     let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
                                                               addressWallet: self.tempAddress, pkey: self.tempPKEY)
-                                    self.arr_Accounts.append(newAcc)
-                                    
-                                    self.isOk_Back = true
+                                   
                                     
                                     //save vào user default số lượng account phụ
                                     UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
@@ -102,6 +100,10 @@ public struct SheetCreateAccountView: View {
                                     
                                     let rs = UserDefaults.standard.string(forKey: k)
                                     print(rs)
+                                    
+                                    self.arr_Accounts.append(newAcc)
+                                    
+                                    self.isOk_Back = true
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true
