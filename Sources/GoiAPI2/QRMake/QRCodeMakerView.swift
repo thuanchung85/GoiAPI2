@@ -11,19 +11,15 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 public struct QRCodeMakerView: View {
-    @State  var name:String
-    @State  var walletAddress:String
-    @State  var privateKeyCode:String
     
+  var accountInput:Account_Type?
     @State var isShowPrivateKey = false
     
      var width:CGFloat?
      var height:CGFloat?
     
-    public init(name:String, walletAddress: String, privateKeyCode:String, width:CGFloat,  height:CGFloat) {
-        self.name = name
-        self.walletAddress = walletAddress
-        self.privateKeyCode = privateKeyCode
+    public init(width:CGFloat,  height:CGFloat, accountInput:Account_Type) {
+        self.accountInput = accountInput
         self.width = width
         self.height = height
     }
@@ -32,42 +28,62 @@ public struct QRCodeMakerView: View {
         NavigationView{
          
             VStack() {
-                Text(self.name)
+                Text(self.accountInput?.nameWallet ?? "no accountInput data")
                     .font(.title)
                 
-                Image(uiImage: generateQRCode(from: self.walletAddress))
+                Image(uiImage: generateQRCode(from: self.accountInput?.nameWallet ?? "no accountInput data"))
                     .resizable()
                     .interpolation(.none)
                     .scaledToFit()
                     .frame(width: 300, height: 300)
                 
-                Text("Wallet address: " + self.walletAddress)
+                Text("Wallet address: ")
                     .font(.title)
+                Text(self.accountInput?.addressWallet ?? "no accountInput data")
+                    .font(.footnote)
                 
-                Button {
+               //nút copy address
+                Button(action: {
                     print("Copy Button was tapped save to clipbroad")
-                  
-                    UIPasteboard.general.setValue(self.walletAddress,
-                                                      forPasteboardType: UTType.plainText.identifier)
-                   
-                } label: {
-                    Text("Copy!")
-                        .font(.body)
-                       
+                    UIPasteboard.general.setValue(self.accountInput?.addressWallet ?? "no accountInput data",forPasteboardType: UTType.plainText.identifier)
+                }) {
+                    HStack{
+                        Text("Copy")
+                            .foregroundColor(Color.white)
+                            .font(.custom("Arial", size: 20))
+                            .padding(.horizontal,5)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .padding(.horizontal,20)
+                    .padding(.bottom,50)
                 }
                 
-                
-                Button {
+                //nút show pkey
+                Button(action: {
                     print("Export Private Key Button was tapped")
                     isShowPrivateKey.toggle()
-                } label: {
-                    Text("Export Private Key!!")
-                        .font(.body)
+                }) {
+                    HStack{
+                        Text("Export Private Key!!")
+                            .foregroundColor(Color.white)
+                            .font(.custom("Arial", size: 20))
+                            .padding(.horizontal,5)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .padding(.horizontal,20)
+                    .padding(.bottom,50)
                 }
                 
+                
                 if(isShowPrivateKey == true){
-                    Text("Your Private Key Code: " + self.privateKeyCode)
+                    Text("Your Private Key Code: ")
                         .font(.body)
+                    Text(self.accountInput?.pkey ?? "no data")
+                        .font(.footnote)
                 }
             }
            

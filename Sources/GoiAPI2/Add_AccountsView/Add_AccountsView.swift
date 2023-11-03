@@ -254,11 +254,10 @@ public struct Add_AccountsView: View {
      
         //sheet show mã QR của account khi user nhấp vào detail
         .sheet(isPresented: self.$isShowSheet_QRCodeMakerView,content: {
-            
-            QRCodeMakerView(name: self.arr_Accounts[self.currentChooseAccountIndex].nameWallet,
-                            walletAddress: self.arr_Accounts[self.currentChooseAccountIndex].addressWallet,
-                            privateKeyCode: self.arr_Accounts[self.currentChooseAccountIndex].pkey,
-                            width: 300, height: 300)
+            let n = self.arr_Accounts[self.currentChooseAccountIndex].nameWallet
+            let a = self.arr_Accounts[self.currentChooseAccountIndex].addressWallet
+            let p =  self.arr_Accounts[self.currentChooseAccountIndex].pkey
+            QRCodeMakerView(width: 300, height: 300, accountInput: self.arr_Accounts[self.currentChooseAccountIndex])
             .onAppear(){
                 print("self.currentChooseAccountIndex: \(self.currentChooseAccountIndex)")
             }
