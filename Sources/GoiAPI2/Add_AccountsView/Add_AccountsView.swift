@@ -137,6 +137,8 @@ public struct Add_AccountsView: View {
                             self.choose_WalletPkey = i.pkey
                             self.currentChooseAccountIndex = index
                             print(self.currentChooseAccountIndex)
+                            //shut off this view
+                            self.isBack = false
                         })
                         .frame(height: 120)
                         .background(
