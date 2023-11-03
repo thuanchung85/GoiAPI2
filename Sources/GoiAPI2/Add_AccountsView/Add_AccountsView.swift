@@ -194,7 +194,9 @@ public struct Add_AccountsView: View {
             let chay = Int(s) ?? 0
             if(chay > 0){
                 for i in 0...chay - 1 {
-                    let rs = UserDefaults.standard.string(forKey: "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(i)")
+                    let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(i)"
+                    print(k)
+                    let rs = UserDefaults.standard.string(forKey: k)
                     print("get user default account phu -> \(String(describing: rs))")
                     
                 }
