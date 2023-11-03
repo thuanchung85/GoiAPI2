@@ -258,7 +258,7 @@ public struct Add_AccountsView: View {
         //sheet show mã QR của account khi user nhấp vào detail
         .sheet(isPresented: self.$isShowSheet_QRCodeMakerView,content: {
             
-            QRCodeMakerView(width: 300, height: 300, accountInput: self.arr_Accounts[self.currentChooseAccountIndex])
+            QRCodeMakerView(width: 300, height: 300, accountInput: self.arr_Accounts, currentIndex: self.$currentChooseAccountIndex)
             .onAppear(){
                 print("arr_Accounts: ",  self.arr_Accounts[self.currentChooseAccountIndex])
                 print("self.currentChooseAccountIndex: \(self.currentChooseAccountIndex)")

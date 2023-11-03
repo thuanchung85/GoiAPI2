@@ -11,17 +11,18 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 public struct QRCodeMakerView: View {
-    
-  var accountInput:Account_Type?
+    @Binding var currentIndex:Int
+  var accountInput:[Account_Type]
     @State var isShowPrivateKey = false
     
      var width:CGFloat?
      var height:CGFloat?
     
-    public init(width:CGFloat,  height:CGFloat, accountInput:Account_Type) {
+    public init(width:CGFloat,  height:CGFloat, accountInput:[Account_Type], currentIndex:Binding<Int>) {
         self.accountInput = accountInput
         self.width = width
         self.height = height
+        self._currentIndex = currentIndex
         
         print("arr_Accounts enter: ",  self.accountInput)
     }
@@ -30,10 +31,10 @@ public struct QRCodeMakerView: View {
         NavigationView{
          
             VStack() {
-                Text(self.accountInput?.nameWallet ?? "no accountInput data")
+                Text(self.accountInput[self.currentIndex].nameWallet )
                     .font(.title)
                 
-                Image(uiImage: generateQRCode(from: self.accountInput?.nameWallet ?? "no accountInput data"))
+                Image(uiImage: generateQRCode(from: self.accountInput[self.currentIndex].nameWallet ))
                     .resizable()
                     .interpolation(.none)
                     .scaledToFit()
@@ -41,13 +42,13 @@ public struct QRCodeMakerView: View {
                 
                 Text("Wallet address: ")
                     .font(.title)
-                Text(self.accountInput?.addressWallet ?? "no accountInput data")
+                Text(self.accountInput[self.currentIndex].addressWallet )
                     .font(.footnote)
                 
                //nút copy address
                 Button(action: {
                     print("Copy Button was tapped save to clipbroad")
-                    UIPasteboard.general.setValue(self.accountInput?.addressWallet ?? "no accountInput data",forPasteboardType: UTType.plainText.identifier)
+                    UIPasteboard.general.setValue(self.accountInput[self.currentIndex].addressWallet ,forPasteboardType: UTType.plainText.identifier)
                 }) {
                     HStack{
                         Text("Copy")
@@ -84,7 +85,7 @@ public struct QRCodeMakerView: View {
                 if(isShowPrivateKey == true){
                     Text("Your Private Key Code: ")
                         .font(.body)
-                    Text(self.accountInput?.pkey ?? "no data")
+                    Text(self.accountInput[self.currentIndex].pkey )
                         .font(.footnote)
                 }
             }
