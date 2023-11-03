@@ -125,7 +125,7 @@ public struct Add_AccountsView: View {
                                             .foregroundColor(Color.red)
                                             .font(.custom("Arial", size: 12))
                                             .padding(.horizontal,20)
-                                            .opacity(0.0)
+                                            //.opacity(0.0)
                                     }
                                     Spacer()
                                 }.padding(.top,30)
@@ -254,10 +254,14 @@ public struct Add_AccountsView: View {
      
         //sheet show mã QR của account khi user nhấp vào detail
         .sheet(isPresented: self.$isShowSheet_QRCodeMakerView,content: {
+            
             QRCodeMakerView(name: self.arr_Accounts[self.currentChooseAccountIndex].nameWallet,
                             walletAddress: self.arr_Accounts[self.currentChooseAccountIndex].addressWallet,
                             privateKeyCode: self.arr_Accounts[self.currentChooseAccountIndex].pkey,
                             width: 300, height: 300)
+            .onAppear(){
+                print("self.currentChooseAccountIndex: \(self.currentChooseAccountIndex)")
+            }
         })
     }//end body
     
