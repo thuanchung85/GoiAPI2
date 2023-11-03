@@ -107,6 +107,7 @@ public struct Add_AccountsView: View {
                                        print("show detail sheet isShowSheet_QRCodeMakerView")
                                         print("index là:", index)
                                         self.currentChooseAccountIndex = index
+                                        print("currentChooseAccountIndex là:", self.currentChooseAccountIndex)
                                         self.isShowSheet_QRCodeMakerView = true
                                     }) {
                                         Text("Detail")
@@ -148,6 +149,7 @@ public struct Add_AccountsView: View {
                             print(i.pkey)
                             self.choose_WalletPkey = i.pkey
                             self.currentChooseAccountIndex = index
+                            print("currentChooseAccountIndex là:", self.currentChooseAccountIndex)
                             print(self.currentChooseAccountIndex)
                             //shut off this view
                             self.isBack = false
