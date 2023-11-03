@@ -192,8 +192,10 @@ public struct Add_AccountsView: View {
             
             //add them theo so luong s tra ra
             let chay = Int(s) ?? 0
-            for _ in 0...chay {
-                print("play")
+            if(chay > 0){
+                for _ in 0...chay - 1 {
+                    print("play")
+                }
             }
         }
         
