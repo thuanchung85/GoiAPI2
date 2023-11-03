@@ -128,6 +128,12 @@ public struct Add_AccountsView: View {
                             }//end VStack
                             
                         }
+                        .frame(height: 120)
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.5), .gray.opacity(0.2)]), startPoint: .top, endPoint: .bottom)
+                            )
+                        .cornerRadius(10)
+                        .padding(.horizontal,15)
                         .onTapGesture(perform: {
                             print("CHỌN ACCOUNT NAY active:")
                             print(i.addressWallet)
@@ -141,13 +147,7 @@ public struct Add_AccountsView: View {
                             //shut off this view
                             self.isBack = false
                         })
-                        .frame(height: 120)
-                        .background(
-                            LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.5), .gray.opacity(0.2)]), startPoint: .top, endPoint: .bottom)
-                            )
-                        .cornerRadius(10)
-                        .padding(.horizontal,15)
-                       
+                        
                         
                         
                     }
