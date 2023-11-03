@@ -187,7 +187,7 @@ public struct Add_AccountsView: View {
             //gắn core account vào array
             arr_Accounts.append(accountCore)
             //kiểm tra user default coi có bao nhieu account phu gắn với Wallet address này
-            let s = UserDefaults.standard.string(forKey: "\(self.arr_Accounts.first!.addressWallet)_AccountPhu") ?? "0"
+            let s = UserDefaults.standard.string(forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu") ?? "0"
             print("so luong _AccountPhu cua: \(self.arr_Accounts.first!.addressWallet) : \(s )")
             
             //add them theo so luong s tra ra
