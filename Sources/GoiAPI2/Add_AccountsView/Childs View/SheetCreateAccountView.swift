@@ -96,7 +96,12 @@ public struct SheetCreateAccountView: View {
                                     //save vào user default số lượng account phụ
                                     UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
                                     //save vào user default thông tin account phụ
-                                    UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)")
+                                    let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
+                                    print(k)
+                                    UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
+                                    
+                                    let rs = UserDefaults.standard.string(forKey: k)
+                                    print(rs)
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true
