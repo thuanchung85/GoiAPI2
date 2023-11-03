@@ -105,6 +105,7 @@ public struct Add_AccountsView: View {
                                     //nut detail
                                     Button(action: {
                                        print("show detail sheet isShowSheet_QRCodeMakerView")
+                                        print("index là:", index)
                                         self.currentChooseAccountIndex = index
                                         self.isShowSheet_QRCodeMakerView = true
                                     }) {
