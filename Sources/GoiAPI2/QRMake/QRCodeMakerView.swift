@@ -22,6 +22,8 @@ public struct QRCodeMakerView: View {
         self.accountInput = accountInput
         self.width = width
         self.height = height
+        
+        print("arr_Accounts enter: ",  self.accountInput)
     }
     
     public var body: some View{
