@@ -196,9 +196,18 @@ public struct Add_AccountsView: View {
                 for i in 1...chay {
                     let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(i)"
                     print(k)
-                    let rs = UserDefaults.standard.string(forKey: k)
-                    print("get user default account phu -> \(String(describing: rs))")
-                    
+                    let returnString = UserDefaults.standard.string(forKey: k)
+                    print("get user default account phu -> \(String(describing: returnString))")
+                    if (returnString != nil)
+                    {
+                        let arrayOfParams = returnString!.components(separatedBy: "+|@|+")
+                        print(arrayOfParams)
+                        if(arrayOfParams.count == 3){
+                            let newAcc = Account_Type(nameWallet: arrayOfParams.first!,
+                                                      addressWallet: arrayOfParams[1], pkey: arrayOfParams.last!)
+                            self.arr_Accounts.append(newAcc)
+                        }
+                    }
                 }
             }
         }
