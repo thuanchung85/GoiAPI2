@@ -33,6 +33,9 @@ public struct Add_AccountsView: View {
     @Binding var choose_WalletPkey:String
     @State var currentChooseAccountIndex: Int = 0
     
+    //biến show isShowSheet_QRCodeMakerView
+    @State var isShowSheet_QRCodeMakerView = false
+    
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String,
                 choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>)  {
@@ -101,8 +104,9 @@ public struct Add_AccountsView: View {
                                     Spacer()
                                     //nut detail
                                     Button(action: {
-                                       print("show detail sheet")
-                                        
+                                       print("show detail sheet isShowSheet_QRCodeMakerView")
+                                        self.currentChooseAccountIndex = index
+                                        self.isShowSheet_QRCodeMakerView = true
                                     }) {
                                         Text("Detail")
                                             .foregroundColor(Color.black)
@@ -248,6 +252,13 @@ public struct Add_AccountsView: View {
            
          })//end sheet
      
+        //sheet show mã QR của account khi user nhấp vào detail
+        .sheet(isPresented: self.$isShowSheet_QRCodeMakerView,content: {
+            QRCodeMakerView(name: self.arr_Accounts[self.currentChooseAccountIndex].nameWallet,
+                            walletAddress: self.arr_Accounts[self.currentChooseAccountIndex].addressWallet,
+                            privateKeyCode: self.arr_Accounts[self.currentChooseAccountIndex].pkey,
+                            width: 300, height: 300)
+        })
     }//end body
     
 }//end struct

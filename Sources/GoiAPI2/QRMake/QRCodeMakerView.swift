@@ -11,19 +11,19 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 public struct QRCodeMakerView: View {
-    @Binding  var name:String
-    @Binding  var walletAddress:String
-    @Binding  var privateKeyCode:String
+    @State  var name:String
+    @State  var walletAddress:String
+    @State  var privateKeyCode:String
     
     @State var isShowPrivateKey = false
     
      var width:CGFloat?
      var height:CGFloat?
     
-    public init(name: Binding<String>, walletAddress: Binding<String>, privateKeyCode:Binding<String>, width:CGFloat,  height:CGFloat) {
-        self._name = name
-        self._walletAddress = walletAddress
-        self._privateKeyCode = privateKeyCode
+    public init(name:String, walletAddress: String, privateKeyCode:String, width:CGFloat,  height:CGFloat) {
+        self.name = name
+        self.walletAddress = walletAddress
+        self.privateKeyCode = privateKeyCode
         self.width = width
         self.height = height
     }
