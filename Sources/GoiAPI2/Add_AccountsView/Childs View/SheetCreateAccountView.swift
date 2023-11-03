@@ -92,6 +92,10 @@ public struct SheetCreateAccountView: View {
                                     self.arr_Accounts.append(newAcc)
                                     
                                     self.isOk_Back = true
+                                    
+                                    //save vào user default số lượng account phụ
+                                   
+                                    UserDefaults.standard.set("\(self.arr_Accounts.count)", forKey: "\(self.arr_Accounts.first!.addressWallet)_AccountPhu")
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true
