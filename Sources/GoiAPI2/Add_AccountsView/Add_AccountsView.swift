@@ -121,6 +121,7 @@ public struct Add_AccountsView: View {
                                             .foregroundColor(Color.red)
                                             .font(.custom("Arial", size: 12))
                                             .padding(.horizontal,20)
+                                            .opacity(0.0)
                                     }
                                     Spacer()
                                 }.padding(.top,30)
