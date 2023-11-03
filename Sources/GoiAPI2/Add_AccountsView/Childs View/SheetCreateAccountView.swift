@@ -101,7 +101,7 @@ public struct SheetCreateAccountView: View {
                                     UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
                                     
                                     let rs = UserDefaults.standard.string(forKey: k)
-                                    print(rs)
+                                    print(rs as Any)
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true

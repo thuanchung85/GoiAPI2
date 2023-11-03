@@ -121,7 +121,9 @@ public struct Add_AccountsView: View {
                             print(i.pkey)
                         })
                         .frame(height: 120)
-                        .background(Color.gray.opacity(0.5))
+                        .background(
+                                LinearGradient(gradient: Gradient(colors: [.gray, .black]), startPoint: .top, endPoint: .bottom)
+                            )
                         .cornerRadius(10)
                         .padding(.horizontal,15)
                        
