@@ -122,7 +122,7 @@ public struct Add_AccountsView: View {
                         })
                         .frame(height: 120)
                         .background(
-                                LinearGradient(gradient: Gradient(colors: [.gray, .black]), startPoint: .top, endPoint: .bottom)
+                            LinearGradient(gradient: Gradient(colors: [.gray.opacity(0.5), .gray.opacity(0.2)]), startPoint: .top, endPoint: .bottom)
                             )
                         .cornerRadius(10)
                         .padding(.horizontal,15)
