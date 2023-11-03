@@ -188,7 +188,7 @@ public struct Add_AccountsView: View {
             arr_Accounts.append(accountCore)
             //kiểm tra user default coi có bao nhieu account phu gắn với Wallet address này
             let s = UserDefaults.standard.string(forKey: "\(self.arr_Accounts.first!.addressWallet)_AccountPhu")
-            print("so luong _AccountPhu cua: \(self.arr_Accounts.first!.addressWallet) : \(s!)")
+            print("so luong _AccountPhu cua: \(self.arr_Accounts.first!.addressWallet) : \(s ?? "chua co")")
         }
         
         //show sheet người dùng nhập tên ví mới
