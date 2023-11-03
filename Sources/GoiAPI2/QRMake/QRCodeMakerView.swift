@@ -59,7 +59,7 @@ public struct QRCodeMakerView: View {
                     .background(Color.green)
                     .cornerRadius(10)
                     .padding(.horizontal,20)
-                    .padding(.bottom,50)
+                    
                 }
                 
                 //nút show pkey
@@ -77,7 +77,7 @@ public struct QRCodeMakerView: View {
                     .background(Color.green)
                     .cornerRadius(10)
                     .padding(.horizontal,20)
-                    .padding(.bottom,50)
+                    
                 }
                 
                 
