@@ -203,6 +203,10 @@ public struct Add_AccountsView: View {
         //khi xuat hien thi khởi tạo core account
         .onAppear(){
             //tạo core account, account đầu tiên trong ví
+            let pkey_saved = keychain_read_ForPkey(service: "PoolsWallet_\(self.CoreAccount_addressWallet)_PKey", account: self.CoreAccount_addressWallet)
+            let stringPkey = String(decoding: pkey_saved ?? Data(), as: UTF8.self)
+            self.CoreAccount_pkey = stringPkey
+            
             let accountCore = Account_Type(nameWallet: self.CoreAccount_WalletName + " (Core Account)",
                                            addressWallet: self.CoreAccount_addressWallet,
                                            pkey: self.CoreAccount_pkey)
@@ -257,4 +261,18 @@ func short_WalletAddress(s:String) -> String{
     else{
         return s
     }
+}
+
+
+public func keychain_read_ForPkey(service: String, account: String) -> Data? {
+    let query = [
+        kSecClass: kSecClassGenericPassword,
+        kSecAttrService: service,
+        kSecAttrAccount: account,
+        kSecReturnData: true
+    ] as CFDictionary
+        
+    var result: AnyObject?
+    SecItemCopyMatching(query, &result)
+    return result as? Data
 }
