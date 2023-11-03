@@ -27,12 +27,22 @@ public struct Add_AccountsView: View {
     @State var isShow_SheetEnterWalletName = false
     @State var add_NewAccountName = ""
     
+    //khi user chọn account nào làm account active thì ta bắn thông tin đó ra ngoài
+    @Binding var choose_WalletAddress:String
+    @Binding var choose_WalletName:String
+    @Binding var choose_WalletPkey:String
+    @State var currentChooseAccountIndex: Int = 0
+    
     //===INIT==//
-    public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String)  {
+    public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String,
+                choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>)  {
         self._isBack = isBack
         self.CoreAccount_WalletName = CoreAccount_WalletName
         self.CoreAccount_addressWallet = CoreAccount_addressWallet
         self.CoreAccount_pkey = CoreAccount_pkey
+        self._choose_WalletAddress = choose_WalletAddress
+        self._choose_WalletName = choose_WalletName
+        self._choose_WalletPkey = choose_WalletPkey
     }
     
     
@@ -71,8 +81,10 @@ public struct Add_AccountsView: View {
                 //Nút thêm account
                 VStack{
                     //list of orther network
-                    ForEach(self.arr_Accounts, id: \.self)
-                    { i in //section data
+                    ForEach(Array(self.arr_Accounts.enumerated()), id: \.offset) { index, i in
+                   
+                    //ForEach(self.arr_Accounts, id: \.self)
+                    //{ i in //section data
                         
                         HStack{
                             
@@ -116,9 +128,15 @@ public struct Add_AccountsView: View {
                             
                         }
                         .onTapGesture(perform: {
+                            print("CHỌN ACCOUNT NAY active:")
                             print(i.addressWallet)
+                            self.choose_WalletAddress = i.addressWallet
                             print(i.nameWallet)
+                            self.choose_WalletName = i.nameWallet
                             print(i.pkey)
+                            self.choose_WalletPkey = i.pkey
+                            self.currentChooseAccountIndex = index
+                            print(self.currentChooseAccountIndex)
                         })
                         .frame(height: 120)
                         .background(
