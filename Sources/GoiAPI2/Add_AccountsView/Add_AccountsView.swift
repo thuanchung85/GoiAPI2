@@ -192,7 +192,7 @@ public struct Add_AccountsView: View {
             
             //add them theo so luong s tra ra
             let chay = Int(s) ?? 0
-            if(chay > 1){
+            if(chay >= 1){
                 for i in 1...chay {
                     let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(i)"
                     print(k)
