@@ -188,6 +188,7 @@ public struct Add_AccountsView: View {
                     //nut Recovery account
                     Button(action: {
                        print("import Account")
+                        self.add_NewAccountName = ""
                         isShow_SheetRecoverAccountFromPkey = true
                     }) {
                         HStack{

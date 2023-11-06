@@ -39,20 +39,18 @@ public struct SheetRecoverAccountFromPkey: View {
             }
             HStack{
                 VStack(alignment: .leading){
-                    Text("Private key")
+                    Text("Wallet Address")
                         .font(.custom("Arial Bold", size: 15))
                         .padding(.top,15)
                         .padding(.horizontal,20)
-                   
-                    TextField("Enter your private key", text: self.$pKEY)
-                        .frame(height: 60)
-                        .foregroundColor((isDisableEnterTextEditer == false) ? Color.black : Color.gray)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding([.horizontal], 4)
+                    Text(tempAddress)
+                        .multilineTextAlignment(.leading)
+                        .font(.custom("Arial ", size: 15))
+                        .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                        .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                        .padding([.horizontal], 20)
-                        .disabled(isDisableEnterTextEditer)
+                        .padding(.top,15)
+                        .padding(.horizontal,20)
                     
                     Text("Wallet Name")
                         .font(.custom("Arial Bold", size: 15))
@@ -68,6 +66,23 @@ public struct SheetRecoverAccountFromPkey: View {
                         .padding([.horizontal], 20)
                         .disabled(isDisableEnterTextEditer)
                     
+                    Text("Private key")
+                        .font(.custom("Arial Bold", size: 15))
+                        .padding(.top,15)
+                        .padding(.horizontal,20)
+                   
+                    TextField("Enter your private key", text: self.$pKEY)
+                        .frame(height: 60)
+                        .foregroundColor((isDisableEnterTextEditer == false) ? Color.black : Color.gray)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .padding([.horizontal], 4)
+                        .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                        .padding([.horizontal], 20)
+                        .disabled(isDisableEnterTextEditer)
+                    
+                   
+                    
                     
                     //nut Recover account
                     if(self.add_NewAccountName.isEmpty == false){
@@ -78,13 +93,22 @@ public struct SheetRecoverAccountFromPkey: View {
                                 DispatchQueue.global(qos:.userInteractive).async {
                                     let d = importAccount(by: self.pKEY, name: self.add_NewAccountName, password: "")
                                     print(d)
+                                    if (d.count == 2)
+                                    {
+                                        print("private key OK -> make address")
+                                        self.tempAddress = d.first ?? "..."
+                                        
+                                    }else{
+                                        print("private key NOT OK -> ERROR")
+                                        self.tempAddress = "Cannot recover your wallet, please check your key..."
+                                    }
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true
                                 
                             }) {
                                 HStack{
-                                    Text("Create")
+                                    Text("Recover wallet")
                                         .foregroundColor(Color.white)
                                         .font(.custom("Arial", size: 20))
                                         .padding(.horizontal,5)
@@ -97,7 +121,7 @@ public struct SheetRecoverAccountFromPkey: View {
                             }
                         }
                     }
-                    
+                    Spacer()
                     
                     //nut OK thoat
                     if(self.isOk_Back == true){
