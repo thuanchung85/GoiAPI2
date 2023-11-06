@@ -9,6 +9,7 @@ public struct SheetRecoverAccountFromPkey: View {
     
     @Binding var add_NewAccountName:String
     @Binding var isShow_SheetRecoverAccountFromPkey:Bool
+    @Binding var arr_Accounts:[Account_Type]
     
     @State var pKEY:String = ""
     
@@ -22,9 +23,10 @@ public struct SheetRecoverAccountFromPkey: View {
     @State var tempAddress:String = "0x........"
     
     //===INIT==//
-    public init(add_NewAccountName:Binding<String>,isShow_SheetRecoverAccountFromPkey:Binding<Bool>)  {
+    public init(add_NewAccountName:Binding<String>,isShow_SheetRecoverAccountFromPkey:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
         self._add_NewAccountName = add_NewAccountName
         self._isShow_SheetRecoverAccountFromPkey = isShow_SheetRecoverAccountFromPkey
+        self._arr_Accounts = arr_Accounts
     }
     
     //===BODY===//
@@ -109,6 +111,12 @@ public struct SheetRecoverAccountFromPkey: View {
                                         self.tempAddress = d.first ?? "..."
                                         self.isDisableEnterTextEditer = true
                                         self.isOk_Back = true
+                                        
+                                        //tạo account mới
+                                        let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                                  addressWallet: self.tempAddress, pkey: self.pKEY)
+                                        self.arr_Accounts.append(newAcc)
+                                        
                                     }else{
                                         print("private key NOT OK -> ERROR")
                                         self.tempAddress = "Cannot recover your wallet, please check your key..."

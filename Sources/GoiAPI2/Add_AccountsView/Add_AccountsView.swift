@@ -263,7 +263,7 @@ public struct Add_AccountsView: View {
         .sheet(isPresented: $isShow_SheetRecoverAccountFromPkey,
                 content: {
             SheetRecoverAccountFromPkey(add_NewAccountName: self.$add_NewAccountName,
-                                        isShow_SheetRecoverAccountFromPkey: self.$isShow_SheetRecoverAccountFromPkey)
+                                        isShow_SheetRecoverAccountFromPkey: self.$isShow_SheetRecoverAccountFromPkey, arr_Accounts: self.$arr_Accounts)
            
          })//end sheet
         
