@@ -261,7 +261,8 @@ public struct Add_AccountsView: View {
         //show sheet người dùng nhập Private Key khôi phục account củ
         .sheet(isPresented: $isShow_SheetRecoverAccountFromPkey,
                 content: {
-            SheetRecoverAccountFromPkey()
+            SheetRecoverAccountFromPkey(add_NewAccountName: self.$add_NewAccountName,
+                                        isShow_SheetRecoverAccountFromPkey: self.$isShow_SheetRecoverAccountFromPkey)
            
          })//end sheet
         
