@@ -41,7 +41,7 @@ public struct SheetRecoverAccountFromPkey: View {
                 VStack(alignment: .leading){
                     Text("Wallet Address")
                         .font(.custom("Arial Bold", size: 15))
-                        .padding(.top,15)
+                        .padding(.top,5)
                         .padding(.horizontal,20)
                     Text(tempAddress)
                         .multilineTextAlignment(.leading)
@@ -66,21 +66,31 @@ public struct SheetRecoverAccountFromPkey: View {
                         .padding([.horizontal], 20)
                         .disabled(isDisableEnterTextEditer)
                     
-                    Text("Private key")
-                        .font(.custom("Arial Bold", size: 15))
-                        .padding(.top,15)
-                        .padding(.horizontal,20)
-                   
-                    TextField("Enter your private key", text: self.$pKEY)
-                        .frame(height: 60)
-                        .foregroundColor((isDisableEnterTextEditer == false) ? Color.black : Color.gray)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding([.horizontal], 4)
-                        .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                        .padding([.horizontal], 20)
-                        .disabled(isDisableEnterTextEditer)
-                    
+                    if(self.isOk_Back == false){
+                        Text("Private key")
+                            .font(.custom("Arial Bold", size: 15))
+                            .padding(.top,15)
+                            .padding(.horizontal,20)
+                        
+                        TextField("Enter your private key", text: self.$pKEY)
+                            .frame(height: 60)
+                            .foregroundColor((isDisableEnterTextEditer == false) ? Color.black : Color.gray)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding([.horizontal], 4)
+                            .cornerRadius(10)
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                            .padding([.horizontal], 20)
+                            .disabled(isDisableEnterTextEditer)
+                    }
+                    else{
+                        if(self.isDisableEnterTextEditer == true){
+                            Text("Congratulations, your wallet has been recovered.")
+                                .font(.custom("Arial Bold", size: 15))
+                                .foregroundColor(Color.green)
+                                .padding(.top,15)
+                                .padding(.horizontal,20)
+                        }
+                    }
                    
                     
                     
@@ -97,7 +107,8 @@ public struct SheetRecoverAccountFromPkey: View {
                                     {
                                         print("private key OK -> make address")
                                         self.tempAddress = d.first ?? "..."
-                                        
+                                        self.isDisableEnterTextEditer = true
+                                        self.isOk_Back = true
                                     }else{
                                         print("private key NOT OK -> ERROR")
                                         self.tempAddress = "Cannot recover your wallet, please check your key..."
