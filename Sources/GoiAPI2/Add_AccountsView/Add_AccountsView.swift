@@ -36,6 +36,9 @@ public struct Add_AccountsView: View {
     //biến show isShowSheet_QRCodeMakerView
     @State var isShowSheet_QRCodeMakerView = false
     
+    //biến show sheet khôi phục account bằng PKEY
+    @State var isShow_SheetRecoverAccountFromPkey = false
+    
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String,
                 choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>)  {
@@ -255,6 +258,14 @@ public struct Add_AccountsView: View {
            
          })//end sheet
      
+        //show sheet người dùng nhập Private Key khôi phục account củ
+        .sheet(isPresented: $isShow_SheetRecoverAccountFromPkey,
+                content: {
+            SheetRecoverAccountFromPkey()
+           
+         })//end sheet
+        
+        
         //sheet show mã QR của account khi user nhấp vào detail
         .sheet(isPresented: self.$isShowSheet_QRCodeMakerView,content: {
             
