@@ -185,10 +185,10 @@ public struct Add_AccountsView: View {
                     }
                    
                     
-                    //nut import account
+                    //nut Recovery account
                     Button(action: {
                        print("import Account")
-                        
+                        isShow_SheetRecoverAccountFromPkey = true
                     }) {
                         HStack{
                             Image(systemName: "plus.circle")
