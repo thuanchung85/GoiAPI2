@@ -117,6 +117,16 @@ public struct SheetRecoverAccountFromPkey: View {
                                                                   addressWallet: self.tempAddress, pkey: self.pKEY)
                                         self.arr_Accounts.append(newAcc)
                                         
+                                        
+                                        //save vào user default số lượng account phụ
+                                        UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
+                                        //save vào user default thông tin account phụ
+                                        let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
+                                        print(k)
+                                        UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
+                                        
+                                        let rs = UserDefaults.standard.string(forKey: k)
+                                        print(rs as Any)
                                     }else{
                                         print("private key NOT OK -> ERROR")
                                         self.tempAddress = "Cannot recover your wallet, please check your key..."
