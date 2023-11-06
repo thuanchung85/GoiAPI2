@@ -101,6 +101,7 @@ public struct SheetRecoverAccountFromPkey: View {
                                     }else{
                                         print("private key NOT OK -> ERROR")
                                         self.tempAddress = "Cannot recover your wallet, please check your key..."
+                                        isDisableEnterTextEditer = false
                                     }
                                 }
                                 //xoa tên account vì đã tạo xong
