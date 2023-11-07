@@ -98,12 +98,13 @@ public struct QRCodeMakerView: View {
                                  .font(.custom("Arial", size: 20))
                                  .padding(.horizontal,5)
                          }
-                         .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
-                         .background(Color.green)
+                         .frame(maxWidth: 100, minHeight: 60 ,maxHeight: 60)
+                         .background(Color.red)
                          .cornerRadius(10)
                          .padding(.horizontal,20)
                          
                      }
+                     .padding(10)
                 }
             }
            
