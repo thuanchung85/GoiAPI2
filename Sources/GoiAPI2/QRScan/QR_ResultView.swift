@@ -12,6 +12,8 @@ public struct QR_ResultView: View {
     
     @Binding var qrResultString:String
     @Binding var isShow_ScanQRcodeView:Bool
+    
+    @State var add_NewAccountName:String = ""
     //===BODY==//
     public var body: some View {
         VStack{
@@ -30,11 +32,26 @@ public struct QR_ResultView: View {
             
             //nếu đia chỉ ví là ethereum
             if(self.qrResultString.count == 42){
+                
+                Text("Wallet Name")
+                    .font(.custom("Arial Bold", size: 15))
+                    .padding(.top,15)
+                    .padding(.horizontal,20)
+                TextField("Enter name for this wallet address", text: self.$add_NewAccountName)
+                    .frame(height: 60)
+                    .foregroundColor( Color.black)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding([.horizontal], 4)
+                    .cornerRadius(10)
+                    .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                    .padding([.horizontal], 20)
+                    
+                
                 //nut save account
                 Button(action: {
                     print("Save this wallet address")
                     //save wallet vao máy
-                    
+                    UserDefaults.standard.set("\(add_NewAccountName)+|Receiver@Wallet|+\(qrResultString)", forKey: qrResultString)
                     //dismiss
                     isShow_ScanQRcodeView = false
                 }) {
@@ -55,8 +72,8 @@ public struct QR_ResultView: View {
             }
             else{
                 Text("This is NOT ETHEREUM wallet address!")
-                    .foregroundColor(Color.black)
-                    .font(.custom("Arial Bold", size: 20))
+                    .foregroundColor(Color.red)
+                    .font(.custom("Arial Bold", size: 15))
                     .padding(15)
                 //nut save account
                 Button(action: {
@@ -64,9 +81,6 @@ public struct QR_ResultView: View {
                     isShow_ScanQRcodeView = false
                 }) {
                     HStack{
-                        Image(systemName: "square.and.pencil")
-                            .renderingMode(.template)
-                            .foregroundColor(Color.white)
                         Text("Back")
                             .foregroundColor(Color.white)
                             .font(.custom("Arial", size: 20))
