@@ -34,7 +34,7 @@ public struct QRCodeMakerView: View {
                 Text(self.accountInput[self.currentIndex].nameWallet )
                     .font(.title)
                 
-                Image(uiImage: generateQRCode(from: self.accountInput[self.currentIndex].nameWallet ))
+                Image(uiImage: generateQRCode(from: self.accountInput[self.currentIndex].addressWallet ))
                     .resizable()
                     .interpolation(.none)
                     .scaledToFit()
