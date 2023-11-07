@@ -50,8 +50,17 @@ public struct QR_ResultView: View {
                 //nut save account
                 Button(action: {
                     print("Save this wallet address")
+                    //kiểm tra số lượng các địa chỉ vi của người khác save trên máy
+                    let s = UserDefaults.standard.string(forKey: "numberOfRecipientWallet") ?? "0"
+                    let ss = (Int(s) ?? 0) + 1
                     //save wallet vao máy
-                    UserDefaults.standard.set("\(add_NewAccountName)+|Receiver@Wallet|+\(qrResultString)", forKey: qrResultString)
+                    UserDefaults.standard.set(String(ss), forKey: "numberOfRecipientWallet")
+                    
+                    let g = UserDefaults.standard.string(forKey: "numberOfRecipientWallet") ?? "0"
+                    UserDefaults.standard.set("\(add_NewAccountName)+|Receiver@Wallet|+\(qrResultString)", forKey: "recipient\(g)")
+                    
+                    let r = UserDefaults.standard.string(forKey: "recipient\(g)") ?? "0"
+                    print(r)
                     //dismiss
                     isShow_ScanQRcodeView = false
                 }) {
