@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import AVKit
 
-public struct QR_ScannerView: View {
+public struct QR_ScannerView_GetAnotherWalletAddress: View {
     
     @State  var session:AVCaptureSession = .init()
     @State var qrOutput:AVCaptureMetadataOutput = .init()
@@ -22,6 +22,8 @@ public struct QR_ScannerView: View {
     @Binding var scannerCode:String
     
     @Binding var isShow_ScanQRcodeView:Bool
+    
+    @State var isShow_SheetSaveOtherAddressWallet:Bool = false
     
     //===INIT===//
     public init(scannerCode:Binding<String>, isShow_ScanQRcodeView: Binding<Bool>)  {
@@ -89,14 +91,24 @@ public struct QR_ScannerView: View {
           print(newValue)
                 self.scannerCode = newValue
                 session.stopRunning()
+            //gọi view show kêt quả ra
+            self.isShow_SheetSaveOtherAddressWallet = true
             //truyền data ra ngoài và dismiss
-            self.isShow_ScanQRcodeView = false
+            //self.isShow_ScanQRcodeView = false
           
             
         }
         .onAppear(perform:  checkCameraPermission)
        
+        .sheet(isPresented: $isShow_SheetSaveOtherAddressWallet,
+                content: {
+            QR_ResultView(qrResultString: self.scannerCode ,isShow_ScanQRcodeView:$isShow_ScanQRcodeView)
+           
+         })//end sheet
     }//end body
+    
+    
+    
     
     //====hàm check quyền truy câp camera====/
     func checkCameraPermission(){
