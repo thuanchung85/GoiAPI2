@@ -87,6 +87,23 @@ public struct QRCodeMakerView: View {
                         .font(.body)
                     Text(self.accountInput[self.currentIndex].pkey )
                         .font(.footnote)
+                    //nút copy address
+                     Button(action: {
+                         print("Copy Button was tapped save PKEY to clipbroad")
+                         UIPasteboard.general.setValue(self.accountInput[self.currentIndex].pkey ,forPasteboardType: UTType.plainText.identifier)
+                     }) {
+                         HStack{
+                             Text("Copy")
+                                 .foregroundColor(Color.white)
+                                 .font(.custom("Arial", size: 20))
+                                 .padding(.horizontal,5)
+                         }
+                         .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
+                         .background(Color.green)
+                         .cornerRadius(10)
+                         .padding(.horizontal,20)
+                         
+                     }
                 }
             }
            
