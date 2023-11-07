@@ -16,14 +16,18 @@ public struct QR_ResultView: View {
     public var body: some View {
         VStack{
             Text("This is result of QR code")
-                .foregroundColor(Color.white)
+                .foregroundColor(Color.black)
                 .font(.custom("Arial Bold", size: 20))
                 .padding(15)
             Text(qrResultString)
-                .foregroundColor(Color.white)
-                .font(.custom("Arial", size: 15))
-                .padding(.top,5)
-            
+                .frame(height: 60)
+                .foregroundColor(Color.black)
+                .textFieldStyle(PlainTextFieldStyle())
+                .padding([.horizontal], 4)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                .padding([.horizontal], 20)
+            Spacer()
             //nut save account
             Button(action: {
                print("Save this wallet address")
@@ -42,7 +46,7 @@ public struct QR_ResultView: View {
                 .background(Color.green)
                 .cornerRadius(10)
                 .padding(.horizontal,20)
-            }
+            }.padding(15)
         }
         
     }//end body
