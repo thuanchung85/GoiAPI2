@@ -102,7 +102,7 @@ public struct QR_ScannerView_GetAnotherWalletAddress: View {
        
         .sheet(isPresented: $isShow_SheetSaveOtherAddressWallet,
                 content: {
-            QR_ResultView(qrResultString: self.scannerCode ,isShow_ScanQRcodeView:$isShow_ScanQRcodeView)
+            QR_ResultView(qrResultString: self.$scannerCode ,isShow_ScanQRcodeView:$isShow_ScanQRcodeView)
            
          })//end sheet
     }//end body

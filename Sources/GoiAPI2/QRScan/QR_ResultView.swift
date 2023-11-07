@@ -10,7 +10,7 @@ import AVKit
 
 public struct QR_ResultView: View {
     
-    @State var qrResultString = ""
+    @Binding var qrResultString:String
     @Binding var isShow_ScanQRcodeView:Bool
     //===BODY==//
     public var body: some View {
