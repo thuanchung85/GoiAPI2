@@ -17,7 +17,7 @@ public struct QR_ResultView: View {
     //===BODY==//
     public var body: some View {
         VStack{
-            Text("Add other wallet address")
+            Text("Add recipient wallet address")
                 .foregroundColor(Color.black)
                 .font(.custom("Arial Bold", size: 20))
                 .padding(15)
@@ -33,18 +33,20 @@ public struct QR_ResultView: View {
                             .frame(width: 120, height: 120)
                 }
                 HStack{
-                    Text("This is wallet address get from QR code")
-                        .foregroundColor(Color.black)
-                        .font(.custom("Arial Bold", size: 20))
-                        .padding(15)
-                    Text(qrResultString)
-                        .frame(height: 60)
-                        .foregroundColor(Color.black)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding([.horizontal], 4)
-                        .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
-                        .padding([.horizontal], 20)
+                    VStack(alignment: .leading){
+                        Text("This is wallet address get from QR code")
+                            .foregroundColor(Color.black)
+                            .font(.custom("Arial Bold", size: 20))
+                            .padding(15)
+                        Text(qrResultString)
+                            .frame(height: 60)
+                            .foregroundColor(Color.black)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding([.horizontal], 4)
+                            .cornerRadius(10)
+                            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.gray))
+                            .padding([.horizontal], 20)
+                    }
                 }
                 HStack{
                     VStack(alignment: .leading){
