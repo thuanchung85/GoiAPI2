@@ -202,13 +202,13 @@ public func importAccount(by privateKey: String, name: String, password:String, 
    
     do{
         guard let dataKey = Data.fromHex(formattedKey)
-        else {throw NSError() }
+        else {throw NSError(domain: "my error domain", code: 42) }
         
         guard let keystore = try EthereumKeystoreV3(privateKey: dataKey, password: password)
-        else{ throw NSError()   }
+        else{ throw NSError(domain: "my error domain", code: 42)   }
         
         guard let address = keystore.addresses?.first?.address
-        else { throw NSError()  }
+        else { throw NSError(domain: "my error domain", code: 42)  }
         
         let keyData = try JSONEncoder().encode(keystore.keystoreParams)
         print("keyData get back by PrivateKey: ", keyData)
@@ -240,8 +240,8 @@ public func importAccount(by privateKey: String, name: String, password:String, 
         }
         
     }
-    catch{
-        print(error.localizedDescription)
+    catch let error as NSError {
+        print("Caught NSError: \(error.localizedDescription)")
         completionHandler( ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"] )
     }
    
