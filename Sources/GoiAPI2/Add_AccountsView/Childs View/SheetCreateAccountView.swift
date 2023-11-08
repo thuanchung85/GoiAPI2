@@ -14,6 +14,7 @@ public struct SheetCreateAccountView: View {
     //biến lưu lại địa chỉ account tạm, khi user ok thì sẽ dùng nó còn không ok thì bỏ
     @State var tempAddress:String = "0x........"
     @State var tempPKEY:String = ""
+    @State var tempSig:String = ""
     
     //nut quit khi làm xong account
     @State var isOk_Back:Bool = false
@@ -85,23 +86,35 @@ public struct SheetCreateAccountView: View {
                                     let d = makeEthereumAddressAccount(name: self.add_NewAccountName)
                                     self.tempAddress = d[0]
                                     self.tempPKEY = d[1]
+                                    self.tempSig = d[2]
                                     print("tempAddress make new: ",  self.tempAddress)
-                                    //tạo account mới
-                                    let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                              addressWallet: self.tempAddress, pkey: self.tempPKEY)
-                                    self.arr_Accounts.append(newAcc)
+                                    print("tempPKEY make new: ",  self.tempPKEY)
+                                    print("tempSig make new: ",  self.tempSig)
                                     
-                                    self.isOk_Back = true
+                               
+                                       
+                                        //tạo account mới
+                                        let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                                  addressWallet: self.tempAddress, pkey: self.tempPKEY,
+                                                                  signatureForBackEnd: tempSig)
+                                        self.arr_Accounts.append(newAcc)
+                                        
+                                        self.isOk_Back = true
+                                        
+                                        //save vào user default số lượng account phụ
+                                        UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
+                                        //save vào user default thông tin account phụ
+                                        let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
+                                        print(k)
+                                    UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)+|@|+\(newAcc.signatureForBackEnd)", forKey: k)
+                                        
+                                        let rs = UserDefaults.standard.string(forKey: k)
+                                        print(rs as Any)
+                                        
+                                        
                                     
-                                    //save vào user default số lượng account phụ
-                                    UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
-                                    //save vào user default thông tin account phụ
-                                    let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
-                                    print(k)
-                                    UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
                                     
-                                    let rs = UserDefaults.standard.string(forKey: k)
-                                    print(rs as Any)
+                                   
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true
@@ -160,11 +173,36 @@ func makeEthereumAddressAccount(name :String) -> [String]
         let pkey = try? keystore?.UNSAFE_getPrivateKeyData(password: "", account: address!).toHexString()
         let privateKey = "0x" + (pkey ?? "")
         print(pkey as Any)
-        return [address!.address, privateKey]
+        //tạo signature của "wallet address nay"
+        guard let SIGNATURE_HASH = Bundle.main.object(forInfoDictionaryKey: "SignatureHash") as? String else {
+            fatalError("SignatureHash must not be empty in plist")
+        }
+        print(SIGNATURE_HASH)
+        let msgStr = SIGNATURE_HASH
+        let data_msgStr = msgStr.data(using: .utf8)
+        
+        let pKey = privateKey
+        let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
+         let dataKey = Data.fromHex(formattedKey)
+        
+      
+        let keystoreManager = KeystoreManager([keystore!])
+        Task{
+            let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
+            web3Rinkeby.addKeystoreManager(keystoreManager)
+            let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
+                                                                      account:  keystoreManager.addresses![0],
+                                                                      password: "");
+            let strSignature = signMsg.base64EncodedString()
+            print("strSignature: ",strSignature);
+            
+            
+            return [address!.address, privateKey, strSignature]
+        }
      } catch {
      print(error.localizedDescription)
      }
-    return ["error no data","error no data"]
+    return ["error no data","error no data","error no data"]
 }
 
 

@@ -21,6 +21,7 @@ public struct SheetRecoverAccountFromPkey: View {
     
     
     @State var tempAddress:String = "0x........"
+    @State var tempSign:String = ""
     
     //===INIT==//
     public init(add_NewAccountName:Binding<String>,isShow_SheetRecoverAccountFromPkey:Binding<Bool>, arr_Accounts:Binding<[Account_Type]>)  {
@@ -105,16 +106,18 @@ public struct SheetRecoverAccountFromPkey: View {
                                 DispatchQueue.global(qos:.userInteractive).async {
                                     let d = importAccount(by: self.pKEY, name: self.add_NewAccountName, password: "")
                                     print(d)
-                                    if (d.count == 2)
+                                    if (d.count == 3)
                                     {
                                         print("private key OK -> make address")
                                         self.tempAddress = d.first ?? "..."
+                                        self.tempSign = d.last ?? "..."
                                         self.isDisableEnterTextEditer = true
                                         self.isOk_Back = true
                                         
                                         //tạo account mới
                                         let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                                  addressWallet: self.tempAddress, pkey: self.pKEY)
+                                                                  addressWallet: self.tempAddress, pkey: self.pKEY,
+                                                                  signatureForBackEnd: self.tempSign)
                                         self.arr_Accounts.append(newAcc)
                                         
                                         
@@ -186,7 +189,8 @@ public struct SheetRecoverAccountFromPkey: View {
 
 
 //===hàm import account===//
-public func importAccount(by privateKey: String, name: String, password:String)  -> [String] {
+public func importAccount(by privateKey: String, name: String, password:String)  -> [String]
+{
     let formattedKey = privateKey.trimmingCharacters(in: .whitespacesAndNewlines)
     
     guard let dataKey = Data.fromHex(formattedKey)
@@ -200,11 +204,37 @@ public func importAccount(by privateKey: String, name: String, password:String) 
         
         let keyData = try JSONEncoder().encode(keystore.keystoreParams)
         print("keyData get back by PrivateKey: ", keyData)
-        let s = String(data: keyData, encoding: . utf8)!
-        return [address, s]
+        let privateKey = String(data: keyData, encoding: . utf8)!
+        
+        //tạo signature của "wallet address nay"
+        guard let SIGNATURE_HASH = Bundle.main.object(forInfoDictionaryKey: "SignatureHash") as? String else {
+            fatalError("SignatureHash must not be empty in plist")
+        }
+        print(SIGNATURE_HASH)
+        let msgStr = SIGNATURE_HASH
+        let data_msgStr = msgStr.data(using: .utf8)
+        
+        let pKey = privateKey
+        let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let dataKey = Data.fromHex(formattedKey)
+        let keystoreManager = KeystoreManager([keystore])
+        Task{
+            let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
+            web3Rinkeby.addKeystoreManager(keystoreManager)
+            let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
+                                                                      account:  keystoreManager.addresses![0],
+                                                                      password: "");
+            let strSignature = signMsg.base64EncodedString()
+            print("strSignature: ",strSignature);
+            
+            return [address, privateKey, strSignature]
+           
+        }
+        
     }
     catch{
+        print(error.localizedDescription)
         return ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"]
     }
-    
+    return ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"]
 }

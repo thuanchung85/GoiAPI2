@@ -11,6 +11,7 @@ public struct Account_Type: Identifiable, Hashable
     var nameWallet:String
     var addressWallet: String
     var pkey:String
+    var signatureForBackEnd:String
 }
 
 public struct Add_AccountsView: View {
@@ -39,9 +40,12 @@ public struct Add_AccountsView: View {
     //biến show sheet khôi phục account bằng PKEY
     @State var isShow_SheetRecoverAccountFromPkey = false
     
+    @State var signatureOfCoreAccount_ForBackEnd:String
+    
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String,
-                choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>)  {
+                choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>,
+                signatureOfCoreAccount_ForBackEnd:String)  {
         self._isBack = isBack
         self.CoreAccount_WalletName = CoreAccount_WalletName
         self.CoreAccount_addressWallet = CoreAccount_addressWallet
@@ -49,6 +53,7 @@ public struct Add_AccountsView: View {
         self._choose_WalletAddress = choose_WalletAddress
         self._choose_WalletName = choose_WalletName
         self._choose_WalletPkey = choose_WalletPkey
+        self.signatureOfCoreAccount_ForBackEnd = signatureOfCoreAccount_ForBackEnd
     }
     
     
@@ -219,9 +224,10 @@ public struct Add_AccountsView: View {
             let stringPkey = String(decoding: pkey_saved ?? Data(), as: UTF8.self)
             self.CoreAccount_pkey = stringPkey
             
+            let sig = UserDefaults.standard.string(forKey: "signatureOfAccount<->\(self.CoreAccount_addressWallet)") ?? "no found"
             let accountCore = Account_Type(nameWallet: self.CoreAccount_WalletName + " (Core Account)",
                                            addressWallet: self.CoreAccount_addressWallet,
-                                           pkey: self.CoreAccount_pkey)
+                                           pkey: self.CoreAccount_pkey, signatureForBackEnd: sig)
             //gắn core account vào array
             arr_Accounts.append(accountCore)
             //kiểm tra user default coi có bao nhieu account phu gắn với Wallet address này
@@ -241,8 +247,10 @@ public struct Add_AccountsView: View {
                         let arrayOfParams = returnString!.components(separatedBy: "+|@|+")
                         print(arrayOfParams)
                         if(arrayOfParams.count == 3){
+                            let sig = UserDefaults.standard.string(forKey: "signatureOfAccount<->\(arrayOfParams[1])") ?? "no found"
                             let newAcc = Account_Type(nameWallet: arrayOfParams.first!,
-                                                      addressWallet: arrayOfParams[1], pkey: arrayOfParams.last!)
+                                                      addressWallet: arrayOfParams[1], pkey: arrayOfParams.last!,
+                                                      signatureForBackEnd: sig)
                             self.arr_Accounts.append(newAcc)
                         }
                     }
