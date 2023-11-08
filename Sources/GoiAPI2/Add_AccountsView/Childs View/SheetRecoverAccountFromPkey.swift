@@ -42,7 +42,7 @@ public struct SheetRecoverAccountFromPkey: View {
                     .scaledToFit()
                     .minimumScaleFactor(0.02)
                 Spacer()
-            }
+            }.padding(.top,5)
             HStack{
                 VStack(alignment: .leading){
                     Text("Wallet Address")
@@ -55,7 +55,7 @@ public struct SheetRecoverAccountFromPkey: View {
                         .frame(maxWidth: .infinity, minHeight: 60 ,maxHeight: 60)
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
-                        .padding(.top,15)
+                        
                         .padding(.horizontal,20)
                     
                     Text("Wallet Name")
