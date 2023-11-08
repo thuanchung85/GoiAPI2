@@ -131,7 +131,7 @@ public struct SheetRecoverAccountFromPkey: View {
                                             //save vào user default thông tin account phụ
                                             let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
                                             print(k)
-                                            UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
+                                            UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)+|@|+\(newAcc.signatureForBackEnd)", forKey: k)
                                             
                                             let rs = UserDefaults.standard.string(forKey: k)
                                             print(rs as Any)
