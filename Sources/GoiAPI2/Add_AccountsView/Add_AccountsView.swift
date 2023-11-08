@@ -32,6 +32,8 @@ public struct Add_AccountsView: View {
     @Binding var choose_WalletAddress:String
     @Binding var choose_WalletName:String
     @Binding var choose_WalletPkey:String
+    @Binding var choose_WalletSignatureOfCoreAccount_ForBackEnd:String
+    
     @State var currentChooseAccountIndex: Int = 0
     
     //biến show isShowSheet_QRCodeMakerView
@@ -40,12 +42,12 @@ public struct Add_AccountsView: View {
     //biến show sheet khôi phục account bằng PKEY
     @State var isShow_SheetRecoverAccountFromPkey = false
     
-    @State var signatureOfCoreAccount_ForBackEnd:String
+  
     
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String,
                 choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>,
-                signatureOfCoreAccount_ForBackEnd:String)  {
+                choose_WalletSignatureOfCoreAccount_ForBackEnd:Binding<String>)  {
         self._isBack = isBack
         self.CoreAccount_WalletName = CoreAccount_WalletName
         self.CoreAccount_addressWallet = CoreAccount_addressWallet
@@ -53,7 +55,7 @@ public struct Add_AccountsView: View {
         self._choose_WalletAddress = choose_WalletAddress
         self._choose_WalletName = choose_WalletName
         self._choose_WalletPkey = choose_WalletPkey
-        self.signatureOfCoreAccount_ForBackEnd = signatureOfCoreAccount_ForBackEnd
+        self._choose_WalletSignatureOfCoreAccount_ForBackEnd = choose_WalletSignatureOfCoreAccount_ForBackEnd
     }
     
     
