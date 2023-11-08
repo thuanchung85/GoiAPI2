@@ -107,16 +107,18 @@ public struct SheetRecoverAccountFromPkey: View {
                                 print("Recover")
                                 self.tempAddress = "Recovering your wallet, please wait..."
                                 DispatchQueue.global(qos:.userInteractive).async {
-                                    importAccount(by: self.pKEY, name: self.add_NewAccountName, password: "",completionHandler: { arr in
-                                        print(arr)
-                                        print("private key OK -> make address")
-                                        self.tempAddress = arr.first ?? "..."
-                                        self.tempSign = arr.last ?? "..."
-                                        self.isDisableEnterTextEditer = true
-                                        self.isOk_Back = true
-                                        
+                                    //nếu hàm importAccount OK
+                                    importAccount(by: self.pKEY, name: self.add_NewAccountName, password: "",completionHandler:
+                                    { arr in
                                         if (arr.count == 3)
                                         {
+                                            print(arr)
+                                            print("private key OK -> make address")
+                                            self.tempAddress = arr.first ?? "..."
+                                            self.tempSign = arr.last ?? "..."
+                                            self.isDisableEnterTextEditer = true
+                                            self.isOk_Back = true
+                                            
                                             //tạo account mới
                                             let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
                                                                       addressWallet: self.tempAddress, pkey: self.pKEY,
@@ -133,7 +135,10 @@ public struct SheetRecoverAccountFromPkey: View {
                                             
                                             let rs = UserDefaults.standard.string(forKey: k)
                                             print(rs as Any)
-                                        }else{
+                                            
+                                        }
+                                        //nếu importAccount trả ra error
+                                        else{
                                             print("private key NOT OK -> ERROR")
                                             self.tempAddress = "Cannot recover your wallet, please check your key..."
                                             isDisableEnterTextEditer = false
