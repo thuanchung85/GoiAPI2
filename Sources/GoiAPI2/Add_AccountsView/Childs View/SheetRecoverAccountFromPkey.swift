@@ -199,51 +199,50 @@ public func importAccount(by privateKey: String, name: String, password:String, 
 {
     let formattedKey = privateKey.trimmingCharacters(in: .whitespacesAndNewlines)
     
-    if let dataKey = Data.fromHex(formattedKey)
-    {
-        do{
-             let keystore = try EthereumKeystoreV3(privateKey: dataKey, password: password)
-            
-            
-            let address = keystore?.addresses?.first?.address
-            
-            
-            let keyData = try JSONEncoder().encode(keystore!.keystoreParams)
-            print("keyData get back by PrivateKey: ", keyData)
-            let privateKey = String(data: keyData, encoding: . utf8)!
-            
-            //tạo signature của "wallet address nay"
-            guard let SIGNATURE_HASH = Bundle.main.object(forInfoDictionaryKey: "SignatureHash") as? String else {
-                fatalError("SignatureHash must not be empty in plist")
-            }
-            print(SIGNATURE_HASH)
-            let msgStr = SIGNATURE_HASH
-            let data_msgStr = msgStr.data(using: .utf8)
-            
-            let pKey = privateKey
-            let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
-            let dataKey = Data.fromHex(formattedKey)
-            let keystoreManager = KeystoreManager([keystore!])
-            Task{
-                let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
-                web3Rinkeby.addKeystoreManager(keystoreManager)
-                let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
-                                                                          account:  keystoreManager.addresses![0],
-                                                                          password: "");
-                let strSignature = signMsg.base64EncodedString()
-                print("strSignature: ",strSignature);
-                
-                completionHandler( [address!, privateKey, strSignature])
-               
-            }
-            
+   
+    do{
+        guard let dataKey = Data.fromHex(formattedKey)
+        else {throw NSError() }
+        
+        guard let keystore = try EthereumKeystoreV3(privateKey: dataKey, password: password)
+        else{ throw NSError()   }
+        
+        guard let address = keystore.addresses?.first?.address
+        else { throw NSError()  }
+        
+        let keyData = try JSONEncoder().encode(keystore.keystoreParams)
+        print("keyData get back by PrivateKey: ", keyData)
+        let privateKey = String(data: keyData, encoding: . utf8)!
+        
+        //tạo signature của "wallet address nay"
+        guard let SIGNATURE_HASH = Bundle.main.object(forInfoDictionaryKey: "SignatureHash") as? String else {
+            fatalError("SignatureHash must not be empty in plist")
         }
-        catch{
-            print(error.localizedDescription)
+        print(SIGNATURE_HASH)
+        let msgStr = SIGNATURE_HASH
+        let data_msgStr = msgStr.data(using: .utf8)
+        
+        let pKey = privateKey
+        let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let keystoreManager = KeystoreManager([keystore])
+        Task{
+            let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
+            web3Rinkeby.addKeystoreManager(keystoreManager)
+            let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
+                                                                      account:  keystoreManager.addresses![0],
+                                                                      password: "");
+            let strSignature = signMsg.base64EncodedString()
+            print("strSignature: ",strSignature);
+            
+            completionHandler( [address, privateKey, strSignature])
            
         }
+        
     }
-    else { completionHandler( ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"] )}
-   
+    catch{
+        print(error.localizedDescription)
+        completionHandler( ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"] )
+    }
    
 }
