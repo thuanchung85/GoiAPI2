@@ -36,8 +36,11 @@ public struct SheetRecoverAccountFromPkey: View {
             HStack{
                 Spacer()
                 Text("Recovery your wallet")
+                    .foregroundColor(Color.red)
                     .font(.custom("Arial Bold", size: 20))
                     .padding(.top,15)
+                    .scaledToFit()
+                    .minimumScaleFactor(0.02)
                 Spacer()
             }
             HStack{
@@ -104,37 +107,40 @@ public struct SheetRecoverAccountFromPkey: View {
                                 print("Recover")
                                 self.tempAddress = "Recovering your wallet, please wait..."
                                 DispatchQueue.global(qos:.userInteractive).async {
-                                    let d = importAccount(by: self.pKEY, name: self.add_NewAccountName, password: "")
-                                    print(d)
-                                    if (d.count == 3)
-                                    {
+                                    importAccount(by: self.pKEY, name: self.add_NewAccountName, password: "",completionHandler: { arr in
+                                        print(arr)
                                         print("private key OK -> make address")
-                                        self.tempAddress = d.first ?? "..."
-                                        self.tempSign = d.last ?? "..."
+                                        self.tempAddress = arr.first ?? "..."
+                                        self.tempSign = arr.last ?? "..."
                                         self.isDisableEnterTextEditer = true
                                         self.isOk_Back = true
                                         
-                                        //tạo account mới
-                                        let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                                  addressWallet: self.tempAddress, pkey: self.pKEY,
-                                                                  signatureForBackEnd: self.tempSign)
-                                        self.arr_Accounts.append(newAcc)
-                                        
-                                        
-                                        //save vào user default số lượng account phụ
-                                        UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
-                                        //save vào user default thông tin account phụ
-                                        let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
-                                        print(k)
-                                        UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
-                                        
-                                        let rs = UserDefaults.standard.string(forKey: k)
-                                        print(rs as Any)
-                                    }else{
-                                        print("private key NOT OK -> ERROR")
-                                        self.tempAddress = "Cannot recover your wallet, please check your key..."
-                                        isDisableEnterTextEditer = false
-                                    }
+                                        if (arr.count == 3)
+                                        {
+                                            //tạo account mới
+                                            let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                                      addressWallet: self.tempAddress, pkey: self.pKEY,
+                                                                      signatureForBackEnd: self.tempSign)
+                                            self.arr_Accounts.append(newAcc)
+                                            
+                                            
+                                            //save vào user default số lượng account phụ
+                                            UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
+                                            //save vào user default thông tin account phụ
+                                            let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
+                                            print(k)
+                                            UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)", forKey: k)
+                                            
+                                            let rs = UserDefaults.standard.string(forKey: k)
+                                            print(rs as Any)
+                                        }else{
+                                            print("private key NOT OK -> ERROR")
+                                            self.tempAddress = "Cannot recover your wallet, please check your key..."
+                                            isDisableEnterTextEditer = false
+                                        }
+                                    })
+                                    
+                                   
                                 }
                                 //xoa tên account vì đã tạo xong
                                 self.isDisableEnterTextEditer = true
@@ -189,18 +195,18 @@ public struct SheetRecoverAccountFromPkey: View {
 
 
 //===hàm import account===//
-public func importAccount(by privateKey: String, name: String, password:String)  -> [String]
+public func importAccount(by privateKey: String, name: String, password:String, completionHandler : @escaping  ([String]) -> Void)
 {
     let formattedKey = privateKey.trimmingCharacters(in: .whitespacesAndNewlines)
     
     guard let dataKey = Data.fromHex(formattedKey)
-    else { return ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"] }
+    else { return }
     do{
         guard let keystore = try EthereumKeystoreV3(privateKey: dataKey, password: password)
-        else{   return ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"]}
+        else{   return }
         
         guard let address = keystore.addresses?.first?.address
-        else { return ["error cannot address by this privateKey"] }
+        else { return }
         
         let keyData = try JSONEncoder().encode(keystore.keystoreParams)
         print("keyData get back by PrivateKey: ", keyData)
@@ -227,14 +233,14 @@ public func importAccount(by privateKey: String, name: String, password:String) 
             let strSignature = signMsg.base64EncodedString()
             print("strSignature: ",strSignature);
             
-            return [address, privateKey, strSignature]
+            completionHandler( [address, privateKey, strSignature])
            
         }
         
     }
     catch{
         print(error.localizedDescription)
-        return ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"]
+       
     }
-    return ["error cannot get dataKey or EthereumKeystoreV3 by this privateKey"]
+   
 }
