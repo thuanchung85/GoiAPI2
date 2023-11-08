@@ -83,36 +83,36 @@ public struct SheetCreateAccountView: View {
                                 print("Create Account")
                                 self.tempAddress = "Making your new wallet, please wait..."
                                 DispatchQueue.global(qos:.userInteractive).async {
-                                    let d = makeEthereumAddressAccount(name: self.add_NewAccountName)
-                                    self.tempAddress = d[0]
-                                    self.tempPKEY = d[1]
-                                    self.tempSig = d[2]
-                                    print("tempAddress make new: ",  self.tempAddress)
-                                    print("tempPKEY make new: ",  self.tempPKEY)
-                                    print("tempSig make new: ",  self.tempSig)
-                                    
-                               
+                                   makeEthereumAddressAccount(name: self.add_NewAccountName, completionHandler: { arr in
+                                        self.tempAddress = arr[0]
+                                        self.tempPKEY = arr[1]
+                                        self.tempSig = arr[2]
+                                       print("tempAddress make new: ",  self.tempAddress)
+                                       print("tempPKEY make new: ",  self.tempPKEY)
+                                       print("tempSig make new: ",  self.tempSig)
                                        
-                                        //tạo account mới
-                                        let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
-                                                                  addressWallet: self.tempAddress, pkey: self.tempPKEY,
-                                                                  signatureForBackEnd: tempSig)
-                                        self.arr_Accounts.append(newAcc)
+                                       //tạo account mới
+                                       let newAcc = Account_Type(nameWallet: self.add_NewAccountName,
+                                                                 addressWallet: self.tempAddress, pkey: self.tempPKEY,
+                                                                 signatureForBackEnd: tempSig)
+                                       self.arr_Accounts.append(newAcc)
+                                       
+                                       self.isOk_Back = true
+                                       
+                                       
                                         
-                                        self.isOk_Back = true
+                                       
+                                       //save vào user default số lượng account phụ
+                                       UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
+                                       //save vào user default thông tin account phụ
+                                       let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
+                                       print(k)
+                                       UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)+|@|+\(newAcc.signatureForBackEnd)", forKey: k)
+                                       
+                                       let rs = UserDefaults.standard.string(forKey: k)
+                                       print(rs as Any)
                                         
-                                        //save vào user default số lượng account phụ
-                                        UserDefaults.standard.set("\(self.arr_Accounts.count - 1)", forKey: "\(self.arr_Accounts.first!.addressWallet)_SoLuongAccountPhu")
-                                        //save vào user default thông tin account phụ
-                                        let k = "\(self.arr_Accounts.first!.addressWallet)_AccountPhu\(self.arr_Accounts.count - 1)"
-                                        print(k)
-                                    UserDefaults.standard.set("\(newAcc.nameWallet)+|@|+\(newAcc.addressWallet)+|@|+\(newAcc.pkey)+|@|+\(newAcc.signatureForBackEnd)", forKey: k)
-                                        
-                                        let rs = UserDefaults.standard.string(forKey: k)
-                                        print(rs as Any)
-                                        
-                                        
-                                    
+                                    })
                                     
                                    
                                 }
@@ -163,7 +163,7 @@ public struct SheetCreateAccountView: View {
 }//end struct
 
 //==hàm tạo nhanh 1 account ethereum==//
-func makeEthereumAddressAccount(name :String) -> [String]
+func makeEthereumAddressAccount(name :String, completionHandler : @escaping  ([String]) -> Void)
 {
     
     do {
@@ -197,12 +197,12 @@ func makeEthereumAddressAccount(name :String) -> [String]
             print("strSignature: ",strSignature);
             
             
-            return [address!.address, privateKey, strSignature]
+            completionHandler( [address!.address, privateKey, strSignature])
         }
      } catch {
      print(error.localizedDescription)
      }
-    return ["error no data","error no data","error no data"]
+   
 }
 
 
