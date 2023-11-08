@@ -253,10 +253,9 @@ public struct Add_AccountsView: View {
                         let arrayOfParams = returnString!.components(separatedBy: "+|@|+")
                         print(arrayOfParams)
                         if(arrayOfParams.count == 4){
-                            let sig = UserDefaults.standard.string(forKey: "signatureOfAccount<->\(arrayOfParams[1])") ?? "no found"
                             let newAcc = Account_Type(nameWallet: arrayOfParams.first!,
-                                                      addressWallet: arrayOfParams[1], pkey: arrayOfParams.last!,
-                                                      signatureForBackEnd: sig)
+                                                      addressWallet: arrayOfParams[1], pkey: arrayOfParams[2],
+                                                      signatureForBackEnd: arrayOfParams.last!)
                             self.arr_Accounts.append(newAcc)
                         }
                     }
