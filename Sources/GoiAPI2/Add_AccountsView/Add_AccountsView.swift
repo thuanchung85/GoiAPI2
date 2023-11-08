@@ -32,7 +32,7 @@ public struct Add_AccountsView: View {
     @Binding var choose_WalletAddress:String
     @Binding var choose_WalletName:String
     @Binding var choose_WalletPkey:String
-    @Binding var choose_WalletSignatureOfCoreAccount_ForBackEnd:String
+    @Binding var choose_signatureForBackEnd:String
     
     @State var currentChooseAccountIndex: Int = 0
     
@@ -47,7 +47,7 @@ public struct Add_AccountsView: View {
     //===INIT==//
     public init(isBack:Binding<Bool>, CoreAccount_WalletName: String,CoreAccount_addressWallet:String,CoreAccount_pkey:String,
                 choose_WalletAddress:Binding<String>,choose_WalletName:Binding<String>,choose_WalletPkey:Binding<String>,
-                choose_WalletSignatureOfCoreAccount_ForBackEnd:Binding<String>)  {
+                choose_signatureForBackEnd:Binding<String>)  {
         self._isBack = isBack
         self.CoreAccount_WalletName = CoreAccount_WalletName
         self.CoreAccount_addressWallet = CoreAccount_addressWallet
@@ -55,7 +55,7 @@ public struct Add_AccountsView: View {
         self._choose_WalletAddress = choose_WalletAddress
         self._choose_WalletName = choose_WalletName
         self._choose_WalletPkey = choose_WalletPkey
-        self._choose_WalletSignatureOfCoreAccount_ForBackEnd = choose_WalletSignatureOfCoreAccount_ForBackEnd
+        self._choose_signatureForBackEnd = choose_signatureForBackEnd
     }
     
     
@@ -162,6 +162,8 @@ public struct Add_AccountsView: View {
                             self.choose_WalletName = i.nameWallet
                             print(i.pkey)
                             self.choose_WalletPkey = i.pkey
+                            print(i.signatureForBackEnd)
+                            self.choose_signatureForBackEnd = i.signatureForBackEnd
                             self.currentChooseAccountIndex = index
                             print("currentChooseAccountIndex là:", self.currentChooseAccountIndex)
                             print(self.currentChooseAccountIndex)
