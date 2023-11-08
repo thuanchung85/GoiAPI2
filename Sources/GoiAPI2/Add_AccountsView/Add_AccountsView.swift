@@ -230,7 +230,9 @@ public struct Add_AccountsView: View {
             let stringPkey = String(decoding: pkey_saved ?? Data(), as: UTF8.self)
             self.CoreAccount_pkey = stringPkey
             
-            let sig =  UserDefaults.standard.string(forKey: "signatureOfAccount<->\(self.CoreAccount_addressWallet)") ?? ""
+            let KK = "signatureOfAccount<->\(self.CoreAccount_addressWallet)"
+            print("KK: ", KK)
+            let sig =  UserDefaults.standard.string(forKey: KK) ?? ""
             let accountCore = Account_Type(nameWallet: self.CoreAccount_WalletName + " (Core Account)",
                                            addressWallet: self.CoreAccount_addressWallet,
                                            pkey: self.CoreAccount_pkey, signatureForBackEnd: sig)
