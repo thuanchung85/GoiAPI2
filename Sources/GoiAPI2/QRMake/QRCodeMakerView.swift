@@ -33,6 +33,8 @@ public struct QRCodeMakerView: View {
             VStack() {
                 Text(self.accountInput[self.currentIndex].nameWallet )
                     .font(.title)
+                    .scaledToFit()
+                    .minimumScaleFactor(0.02)
                 
                 Image(uiImage: generateQRCode(from: self.accountInput[self.currentIndex].addressWallet ))
                     .resizable()
@@ -85,8 +87,12 @@ public struct QRCodeMakerView: View {
                 if(isShowPrivateKey == true){
                     Text("Your Private Key Code: ")
                         .font(.body)
+                        .scaledToFit()
+                        .minimumScaleFactor(0.02)
                     Text(self.accountInput[self.currentIndex].pkey )
                         .font(.footnote)
+                        .scaledToFit()
+                        .minimumScaleFactor(0.02)
                     //nút copy address
                      Button(action: {
                          print("Copy Button was tapped save PKEY to clipbroad")
