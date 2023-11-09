@@ -181,19 +181,23 @@ func makeEthereumAddressAccount(name :String, completionHandler : @escaping  ([S
         let msgStr = SIGNATURE_HASH
         let data_msgStr = msgStr.data(using: .utf8)
         
-        let pKey = privateKey
-        let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
-         let dataKey = Data.fromHex(formattedKey)
+        //let pKey = privateKey
+        //let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
+         //let dataKey = Data.fromHex(formattedKey)
         
       
         let keystoreManager = KeystoreManager([keystore!])
         Task{
-            let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
-            web3Rinkeby.addKeystoreManager(keystoreManager)
-            let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
-                                                                      account:  keystoreManager.addresses![0],
-                                                                      password: "");
-            let strSignature = signMsg.base64EncodedString()
+            //let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
+            //web3Rinkeby.addKeystoreManager(keystoreManager)
+            //let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
+                                                                     // account:  keystoreManager.addresses![0],
+                                                                      //password: "");
+            //let strSignature = signMsg.base64EncodedString()
+            let signMsg = try! Web3Signer.signPersonalMessage(data_msgStr!, keystore: keystore!,
+                                                         account: keystoreManager.addresses![0],
+                                                         password: "")
+            let strSignature = "0x" + (signMsg?.toHexString())!
             print("strSignature: ",strSignature);
             
             
