@@ -187,7 +187,7 @@ func makeEthereumAddressAccount(name :String, completionHandler : @escaping  ([S
         
       
         let keystoreManager = KeystoreManager([keystore!])
-        Task{
+        //Task{
             //let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
             //web3Rinkeby.addKeystoreManager(keystoreManager)
             //let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
@@ -202,7 +202,7 @@ func makeEthereumAddressAccount(name :String, completionHandler : @escaping  ([S
             
             
             completionHandler( [address!.address, privateKey, strSignature])
-        }
+        //}
      } catch {
      print(error.localizedDescription)
      }

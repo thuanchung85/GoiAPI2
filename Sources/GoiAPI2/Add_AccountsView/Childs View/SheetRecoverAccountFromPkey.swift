@@ -231,7 +231,7 @@ public func importAccount(by privateKey: String, name: String, password:String, 
         //let formattedKey = pKey.trimmingCharacters(in: .whitespacesAndNewlines)
         
         let keystoreManager = KeystoreManager([keystore])
-        Task{
+        //Task{
             //let web3Rinkeby = try! await Web3.InfuraRinkebyWeb3()
             //web3Rinkeby.addKeystoreManager(keystoreManager)
             //let signMsg = try! web3Rinkeby.wallet.signPersonalMessage(data_msgStr!,
@@ -246,7 +246,7 @@ public func importAccount(by privateKey: String, name: String, password:String, 
             
             completionHandler( [address, privateKey, strSignature])
            
-        }
+        //}
         
     }
     catch let error as NSError {
